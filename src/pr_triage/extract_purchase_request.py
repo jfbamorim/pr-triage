@@ -24,4 +24,5 @@ def extract_request(text: str, client: OpenAI) -> PurchaseRequest | None:
         temperature=0
     )
     return response.output_parsed
-
+    
+        
