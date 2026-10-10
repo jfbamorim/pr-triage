@@ -7,6 +7,11 @@ class Status(str, Enum):
     VALID = "valid"
 
 
+class Reason(str, Enum):
+    INVALID_DATA = "invalid_data"
+    SUSPICIOUS_ACTIVITY = "suspicious_activity"
+
+
 def determine_status(missing: list[str], invalid: list[str]) -> Status:
     if invalid:
         return Status.REJECTED

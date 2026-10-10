@@ -6,3 +6,8 @@ class PurchaseRequest(BaseModel):
     quantity: int | None
     estimated_value_eur: float | None
     cost_center: str | None
+    
+    
+class InputScreening(BaseModel):
+    is_suspicious: bool
+    reason: str
