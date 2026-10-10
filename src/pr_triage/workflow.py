@@ -1,25 +1,15 @@
-from pydantic import BaseModel
-
-from pr_triage.band import Band, determine_band
-from pr_triage.extract_purchase_request import extract_request
-from pr_triage.schemas import PurchaseRequest
-from pr_triage.screen_input import screen_input
-from pr_triage.status import Reason, Status, determine_status
-from pr_triage.validation import validate_request
-
-ALL_FIELDS = ["item", "quantity", "estimated_value_eur", "cost_center"]
+from pr_triage.domain.band import determine_band
+from pr_triage.domain.merge import merge_requests
+from pr_triage.domain.schemas import PurchaseRequest, WorkflowResult
+from pr_triage.domain.status import Reason, Status, determine_status
+from pr_triage.domain.validation import validate_request
+from pr_triage.llm.extract_purchase_request import extract_request
+from pr_triage.llm.screen_input import screen_input
 
 
-class WorkflowResult(BaseModel):
-    status: Status
-    reason: Reason | None = None
-    request: PurchaseRequest | None = None
-    missing: list[str] = []
-    invalid: list[str] = []
-    band: Band | None = None
-
-
-def run_workflow(text, client) -> WorkflowResult:
+def run_workflow(
+    text, client, previous: PurchaseRequest | None = None
+) -> WorkflowResult:
     screening = screen_input(text, client)
     if screening is None or screening.is_suspicious:
         return WorkflowResult(
@@ -28,7 +18,11 @@ def run_workflow(text, client) -> WorkflowResult:
 
     pr = extract_request(text, client)
     if pr is None:
-        return WorkflowResult(status=Status.NEEDS_INFO, missing=ALL_FIELDS)
+        pr = previous or PurchaseRequest(
+            item=None, quantity=None, estimated_value_eur=None, cost_center=None
+        )
+    elif previous is not None:
+        pr = merge_requests(previous, pr)
 
     missing, invalid = validate_request(pr)
     status = determine_status(missing, invalid)

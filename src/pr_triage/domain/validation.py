@@ -1,4 +1,4 @@
-from pr_triage.schemas import PurchaseRequest
+from pr_triage.domain.schemas import PurchaseRequest
 
 
 def validate_request(pr: PurchaseRequest) -> tuple[list[str], list[str]]:

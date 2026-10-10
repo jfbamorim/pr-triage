@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 
-from pr_triage.schemas import InputScreening
+from pr_triage.domain.schemas import InputScreening
 
 load_dotenv()
 
