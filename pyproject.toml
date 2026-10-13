@@ -12,6 +12,7 @@ dependencies = [
     "openai>=3.22.1",
     "pydantic>=2.13.5",
     "python-dotenv>=1.2.3",
+    "streamlit>=1.65.0",
 ]
 
 [project.scripts]

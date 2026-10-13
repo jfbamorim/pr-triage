@@ -1,3 +1,8 @@
+from collections.abc import Iterator
+
+from openai import OpenAI
+from pydantic import BaseModel
+
 from pr_triage.domain.schemas import PurchaseRequest, WorkflowResult
 from pr_triage.domain.status import Reason, Status
 from pr_triage.storage.db import (
@@ -6,7 +11,12 @@ from pr_triage.storage.db import (
     init_db,
     update_request,
 )
-from pr_triage.workflow import run_workflow
+from pr_triage.workflow import StepEvent, iter_workflow
+
+
+class Outcome(BaseModel):
+    request_id: int | None
+    result: WorkflowResult
 
 
 def _open_request(request_id: int | None) -> PurchaseRequest | None:
@@ -23,21 +33,33 @@ def _open_request(request_id: int | None) -> PurchaseRequest | None:
     )
 
 
-def process_message(
-    text, client, request_id: int | None = None
-) -> tuple[int | None, WorkflowResult]:
+def iter_process_message(
+    text: str, client: OpenAI, request_id: int | None = None
+) -> Iterator[StepEvent | Outcome]:
     init_db()
     previous = _open_request(request_id)
     if previous is None:
         request_id = None
 
-    result = run_workflow(text, client, previous)
+    result = None
+    for event in iter_workflow(text, client, previous):
+        if isinstance(event, WorkflowResult):
+            result = event
+        else:
+            yield event
 
-    if result.reason == Reason.SUSPICIOUS_ACTIVITY:
-        return request_id, result
+    if result.reason != Reason.SUSPICIOUS_ACTIVITY:
+        if request_id is None:
+            request_id = create_request(result)
+        else:
+            update_request(request_id, result)
+    yield Outcome(request_id=request_id, result=result)
 
-    if request_id is None:
-        request_id = create_request(result)
-    else:
-        update_request(request_id, result)
-    return request_id, result
+
+def process_message(
+    text: str, client: OpenAI, request_id: int | None = None
+) -> tuple[int | None, WorkflowResult]:
+    for event in iter_process_message(text, client, request_id):
+        if isinstance(event, Outcome):
+            return event.request_id, event.result
+    raise RuntimeError("service ended without an outcome")

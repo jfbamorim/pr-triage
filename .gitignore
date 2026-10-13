@@ -2,3 +2,6 @@
 .venv/
 .chroma/
 __pycache__/
+data/chroma/
+
+pr_triage.db

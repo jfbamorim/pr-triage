@@ -1,7 +1,7 @@
 from pydantic import BaseModel
 
 from pr_triage.domain.band import Band
-from pr_triage.domain.status import Reason, Status
+from pr_triage.domain.status import EscalationReason, Reason, Status
 
 
 class PurchaseRequest(BaseModel):
@@ -16,6 +16,17 @@ class InputScreening(BaseModel):
     reason: str
 
 
+class Evidence(BaseModel):
+    chunk_id: str
+    source: str
+    document: str
+    clause: str
+    title: str
+    effective_date: str | None
+    text: str
+    score: float | None = None
+
+
 class WorkflowResult(BaseModel):
     status: Status
     reason: Reason | None = None
@@ -23,3 +34,5 @@ class WorkflowResult(BaseModel):
     missing: list[str] = []
     invalid: list[str] = []
     band: Band | None = None
+    escalation: EscalationReason | None = None
+    evidence: list[Evidence] = []
