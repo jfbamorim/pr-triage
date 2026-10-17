@@ -23,6 +23,9 @@ def _fields(result: WorkflowResult) -> tuple:
         pr.quantity if pr else None,
         pr.estimated_value_eur if pr else None,
         pr.cost_center if pr else None,
+        pr.category.value if pr else None,
+        int(pr.is_urgent) if pr else 0,
+        int(pr.mentions_framework_contract) if pr else 0,
         result.status.value,
         result.reason.value if result.reason else None,
         result.band.value if result.band else None,
@@ -39,6 +42,9 @@ def init_db() -> None:
                 quantity INTEGER,
                 estimated_value_eur REAL,
                 cost_center TEXT,
+                category TEXT,
+                is_urgent INTEGER NOT NULL DEFAULT 0,
+                mentions_framework_contract INTEGER NOT NULL DEFAULT 0,
                 status TEXT NOT NULL,
                 reason TEXT,
                 band TEXT,
@@ -56,8 +62,9 @@ def create_request(result: WorkflowResult) -> int:
             """
             INSERT INTO purchase_requests
                 (item, quantity, estimated_value_eur, cost_center,
+                 category, is_urgent, mentions_framework_contract,
                  status, reason, band, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (*_fields(result), now, now),
         )
@@ -70,6 +77,7 @@ def update_request(request_id: int, result: WorkflowResult) -> None:
             """
             UPDATE purchase_requests
             SET item = ?, quantity = ?, estimated_value_eur = ?, cost_center = ?,
+                category = ?, is_urgent = ?, mentions_framework_contract = ?,
                 status = ?, reason = ?, band = ?, updated_at = ?
             WHERE id = ?
             """,

@@ -31,9 +31,9 @@ def _open_request(request_id: int | None) -> PurchaseRequest | None:
         quantity=row["quantity"],
         estimated_value_eur=row["estimated_value_eur"],
         cost_center=row["cost_center"],
-        category=Category.OTHER,
-        is_urgent=False,
-        mentions_framework_contract=False,
+        category=Category(row["category"]),
+        is_urgent=bool(row["is_urgent"]),
+        mentions_framework_contract=bool(row["mentions_framework_contract"]),
     )
 
 
