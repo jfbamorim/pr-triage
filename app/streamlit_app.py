@@ -14,6 +14,7 @@ STEP_LABELS = {
     Step.BAND: "Determinar o escalão",
     Step.POLICY: "Consultar a política de compras",
     Step.DECISION: "Decisão",
+    Step.SUMMARY: "Explicar o resultado",
 }
 STATE_ICONS = {"running": "⏳", "done": "✅", "failed": "❌"}
 BAND_LABELS = {
@@ -59,13 +60,22 @@ def render_result(result: WorkflowResult) -> None:
     else:
         st.success(BAND_LABELS[result.band])
 
+    cited = set(result.summary.cited_chunk_ids) if result.summary else set()
+    if result.summary:
+        st.info(result.summary.text)
+        clauses = [e.clause for e in result.evidence if e.chunk_id in cited]
+        st.caption("Cláusulas citadas: " + ", ".join(clauses))
+    else:
+        st.caption("Resumo indisponível.")
+
     st.subheader("Pedido")
     st.json(result.request.model_dump())
 
     st.subheader("Evidência da política")
     for evidence in result.evidence:
         score = f" · score {evidence.score:.2f}" if evidence.score is not None else ""
-        with st.expander(f"{evidence.clause} · {evidence.title}{score}"):
+        mark = "📌 " if evidence.chunk_id in cited else ""
+        with st.expander(f"{mark}{evidence.clause} · {evidence.title}{score}"):
             st.caption(f"{evidence.document} ({evidence.source})")
             st.write(evidence.text)
 

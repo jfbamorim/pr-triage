@@ -6,12 +6,19 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 from pr_triage.domain.band import Band, determine_band
+from pr_triage.domain.citations import validate_citations
 from pr_triage.domain.merge import merge_requests
-from pr_triage.domain.schemas import Evidence, PurchaseRequest, WorkflowResult
+from pr_triage.domain.schemas import (
+    Evidence,
+    PurchaseRequest,
+    ResultSummary,
+    WorkflowResult,
+)
 from pr_triage.domain.status import EscalationReason, Reason, Status, determine_status
 from pr_triage.domain.validation import validate_request
 from pr_triage.llm.extract_purchase_request import extract_request
 from pr_triage.llm.screen_input import screen_input
+from pr_triage.llm.summarize_result import summarize_result
 from pr_triage.rag.context import TIER_CLAUSES, add_linked_clauses, select_context
 from pr_triage.rag.query import build_query
 from pr_triage.rag.retrieve import fetch_by_id, retrieve
@@ -24,6 +31,7 @@ class Step(str, Enum):
     BAND = "band"
     POLICY = "policy"
     DECISION = "decision"
+    SUMMARY = "summary"
 
 
 class StepEvent(BaseModel):
@@ -47,6 +55,20 @@ def _gather_evidence(
     if not selected:
         return evidence, EscalationReason.NO_POLICY_EVIDENCE
     return evidence, None
+
+
+def _summarize(result: WorkflowResult, client: OpenAI) -> ResultSummary | None:
+    if not result.evidence:
+        return None
+    try:
+        summary = summarize_result(result, client)
+    except Exception:
+        return None
+    if summary is None:
+        return None
+    if not validate_citations(summary.cited_chunk_ids, result.evidence):
+        return None
+    return summary
 
 
 def iter_workflow(
@@ -119,13 +141,25 @@ def iter_workflow(
     yield StepEvent(step=Step.DECISION, state="running")
     decision = f"ação manual ({escalation.value})" if escalation else band.value
     yield StepEvent(step=Step.DECISION, state="done", detail=decision)
-    yield WorkflowResult(
+    result = WorkflowResult(
         status=status,
         request=pr,
         band=band,
         escalation=escalation,
         evidence=evidence,
     )
+
+    yield StepEvent(step=Step.SUMMARY, state="running")
+    summary = _summarize(result, client)
+    if summary is None:
+        yield StepEvent(step=Step.SUMMARY, state="failed", detail="Resumo indisponível")
+    else:
+        yield StepEvent(
+            step=Step.SUMMARY,
+            state="done",
+            detail=f"citações: {len(summary.cited_chunk_ids)}",
+        )
+    yield result.model_copy(update={"summary": summary})
 
 
 def run_workflow(

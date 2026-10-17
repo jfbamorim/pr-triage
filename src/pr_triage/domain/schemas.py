@@ -28,6 +28,11 @@ class Evidence(BaseModel):
     amends: str | None = None
 
 
+class ResultSummary(BaseModel):
+    text: str
+    cited_chunk_ids: list[str]
+
+
 class WorkflowResult(BaseModel):
     status: Status
     reason: Reason | None = None
@@ -37,3 +42,4 @@ class WorkflowResult(BaseModel):
     band: Band | None = None
     escalation: EscalationReason | None = None
     evidence: list[Evidence] = []
+    summary: ResultSummary | None = None
