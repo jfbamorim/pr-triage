@@ -17,6 +17,8 @@ vai acontecer ao pedido.
 
 Regras de rigor:
 - Não inventes regras, valores ou cláusulas que não estejam no texto.
+- Nunca digas que não existem cláusulas ou regras para o item. Só sabes que não encontraste
+  nenhuma entre as que recebes, por isso diz "não foi encontrada cláusula específica".
 - Só digas que algo não é necessário ou foi dispensado se a cláusula o disser
   expressamente. Revogar uma exigência não dispensa as restantes regras que se aplicam.
 - Não decidas qual de duas regras prevalece. Só podes dizer que uma substitui ou altera
@@ -25,6 +27,8 @@ Regras de rigor:
   para um tipo de bem), diz esse âmbito.
 - Fala apenas das cláusulas que se aplicam ao valor e ao item deste pedido. Ignora as outras.
 - Se uma cláusula indicar que altera ou substitui outra, usa a versão em vigor.
+- Se o pedido é urgente ou indica contrato-quadro, e recebeste a cláusula respetiva,
+  descreve o que ela prevê e em que condições.
 
 No texto refere as cláusulas pelo número, por exemplo "cláusula 2.1", e nunca pelo chunk_id.
 
@@ -43,6 +47,10 @@ ESCALATION_TEXT = {
 }
 
 
+def _yes_no(value: bool) -> str:
+    return "sim" if value else "não"
+
+
 def build_input(result: WorkflowResult) -> str:
     request = result.request
     manual = ESCALATION_TEXT[result.escalation] if result.escalation else "nenhum"
@@ -52,6 +60,8 @@ def build_input(result: WorkflowResult) -> str:
         f"- quantidade: {request.quantity}",
         f"- valor estimado (EUR): {request.estimated_value_eur}",
         f"- centro de custo: {request.cost_center}",
+        f"- urgente: {_yes_no(request.is_urgent)}",
+        f"- contrato-quadro: {_yes_no(request.mentions_framework_contract)}",
         "",
         f"Motivo de encaminhamento para ação manual: {manual}",
         "",

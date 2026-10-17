@@ -6,6 +6,7 @@ from openai import OpenAI
 from pydantic import BaseModel
 
 from pr_triage.domain.band import Band, determine_band
+from pr_triage.domain.category import Category
 from pr_triage.domain.citations import validate_citations
 from pr_triage.domain.labels import (
     BAND_LABELS,
@@ -25,7 +26,12 @@ from pr_triage.domain.validation import validate_request
 from pr_triage.llm.extract_purchase_request import extract_request
 from pr_triage.llm.screen_input import screen_input
 from pr_triage.llm.summarize_result import summarize_result
-from pr_triage.rag.context import TIER_CLAUSES, add_linked_clauses, select_context
+from pr_triage.rag.context import (
+    TIER_CLAUSES,
+    add_linked_clauses,
+    add_request_clauses,
+    select_context,
+)
 from pr_triage.rag.query import build_query
 from pr_triage.rag.retrieve import fetch_by_id, retrieve
 
@@ -51,11 +57,12 @@ def _gather_evidence(
 ) -> tuple[list[Evidence], EscalationReason | None]:
     try:
         selected = add_linked_clauses(select_context(retrieve(build_query(pr), client)))
+        clauses = add_request_clauses(selected, pr, band)
         tier = fetch_by_id(TIER_CLAUSES[band])
     except Exception:
         return [], EscalationReason.RETRIEVAL_ERROR
 
-    evidence = [tier] + selected
+    evidence = [tier] + clauses
     if band == Band.HUMAN_ACTION:
         return evidence, EscalationReason.OVER_THRESHOLD
     if not selected:
@@ -104,7 +111,13 @@ def iter_workflow(
     pr = extract_request(text, client)
     if pr is None:
         pr = previous or PurchaseRequest(
-            item=None, quantity=None, estimated_value_eur=None, cost_center=None
+            item=None,
+            quantity=None,
+            estimated_value_eur=None,
+            cost_center=None,
+            category=Category.OTHER,
+            is_urgent=False,
+            mentions_framework_contract=False,
         )
     elif previous is not None:
         pr = merge_requests(previous, pr)

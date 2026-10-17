@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 
 from pr_triage.domain.band import Band
+from pr_triage.domain.category import Category
 from pr_triage.domain.status import EscalationReason, Reason, Status
 
 
@@ -9,6 +10,9 @@ class PurchaseRequest(BaseModel):
     quantity: int | None
     estimated_value_eur: float | None
     cost_center: str | None
+    category: Category
+    is_urgent: bool
+    mentions_framework_contract: bool
 
 
 class InputScreening(BaseModel):
