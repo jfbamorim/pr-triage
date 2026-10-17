@@ -1,6 +1,6 @@
 from openai import OpenAI
 
-from pr_triage.domain.schemas import Evidence
+from pr_triage.domain.schemas import Evidence, LLMCall
 from pr_triage.rag.index import embed, get_collection
 
 
@@ -20,9 +20,14 @@ def _to_evidence(
     )
 
 
-def retrieve(query: str, client: OpenAI, top_k: int = 8) -> list[Evidence]:
+def retrieve(
+    query: str,
+    client: OpenAI,
+    top_k: int = 8,
+    calls: list[LLMCall] | None = None,
+) -> list[Evidence]:
     result = get_collection().query(
-        query_embeddings=embed([query], client), n_results=top_k
+        query_embeddings=embed([query], client, calls), n_results=top_k
     )
     return [
         _to_evidence(chunk_id, text, metadata, 1 - distance)

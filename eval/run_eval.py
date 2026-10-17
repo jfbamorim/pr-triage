@@ -6,10 +6,18 @@ from pathlib import Path
 
 from openai import OpenAI
 
-from pr_triage.domain.schemas import WorkflowResult
+from pr_triage.domain.schemas import LLMCall, WorkflowResult
+from pr_triage.llm.extract_purchase_request import PROMPT_VERSION as EXTRACTION_VERSION
+from pr_triage.llm.screen_input import PROMPT_VERSION as SCREENING_VERSION
+from pr_triage.llm.summarize_result import PROMPT_VERSION as SUMMARY_VERSION
 from pr_triage.workflow import run_workflow
 
 CASES_PATH = Path("data/eval/cases.jsonl")
+
+PRICES_PER_MILLION = {
+    "gpt-4.1-mini": (0.40, 1.60),
+    "text-embedding-3-small": (0.02, 0.0),
+}
 
 
 def load_cases(split: str, group: str | None) -> list[dict]:
@@ -43,6 +51,15 @@ def summary_values(result: WorkflowResult) -> dict:
         "text": result.summary.text,
         "cited": result.summary.cited_chunk_ids,
     }
+
+
+def call_cost(call: dict) -> float:
+    price_in, price_out = PRICES_PER_MILLION.get(call["model"], (0.0, 0.0))
+    return (call["input_tokens"] * price_in + call["output_tokens"] * price_out) / 1e6
+
+
+def calls_values(calls: list[LLMCall]) -> list[dict]:
+    return [call.model_dump() for call in calls]
 
 
 def check(expected: dict, result: WorkflowResult) -> tuple[list[str], float | None]:
@@ -86,6 +103,7 @@ def run_case(case: dict, client: OpenAI) -> dict:
             "actual": None,
             "summary": {"state": "n/a", "text": None, "cited": []},
             "evidence": [],
+            "calls": [],
         }
     latency = time.perf_counter() - start
     failures, recall = check(case["expected"], result)
@@ -100,7 +118,35 @@ def run_case(case: dict, client: OpenAI) -> dict:
         "evidence": [
             {"chunk_id": e.chunk_id, "score": e.score} for e in result.evidence
         ],
+        "calls": calls_values(result.calls),
     }
+
+
+def print_usage(results: list[dict]) -> None:
+    by_step = defaultdict(list)
+    for r in results:
+        for call in r["calls"]:
+            by_step[call["step"]].append(call)
+
+    print("\nPor passo")
+    print(f"  {'passo':12} {'chamadas':>8} {'tokens in':>10} {'tokens out':>11} {'latência':>9}")
+    for step, calls in by_step.items():
+        tokens_in = sum(c["input_tokens"] for c in calls)
+        tokens_out = sum(c["output_tokens"] for c in calls)
+        mean_latency = sum(c["latency"] for c in calls) / len(calls)
+        print(
+            f"  {step:12} {len(calls):>8} {tokens_in:>10} {tokens_out:>11} {mean_latency:>8.2f}s"
+        )
+
+    all_calls = [c for r in results for c in r["calls"]]
+    total_in = sum(c["input_tokens"] for c in all_calls)
+    total_out = sum(c["output_tokens"] for c in all_calls)
+    total_cost = sum(call_cost(c) for c in all_calls)
+    print(f"\nTokens: {total_in} in, {total_out} out")
+    print(
+        f"Custo estimado: {total_cost:.4f} $ no total, "
+        f"{total_cost / len(results):.4f} $ por caso"
+    )
 
 
 def print_summary(results: list[dict]) -> None:
@@ -128,6 +174,8 @@ def print_summary(results: list[dict]) -> None:
     mean_latency = sum(r["latency"] for r in results) / len(results)
     print(f"Latência média: {mean_latency:.1f}s")
 
+    print_usage(results)
+
 
 def main() -> None:
     parser = argparse.ArgumentParser()
@@ -140,6 +188,8 @@ def main() -> None:
     if not cases:
         print("Nenhum caso encontrado.")
         return
+
+    print(f"Prompts: {SCREENING_VERSION}, {EXTRACTION_VERSION}, {SUMMARY_VERSION}\n")
 
     client = OpenAI()
     results = []

@@ -2,9 +2,12 @@ import os
 
 from dotenv import load_dotenv
 
-from pr_triage.domain.schemas import InputScreening
+from pr_triage.domain.schemas import InputScreening, LLMCall
+from pr_triage.llm.metrics import parse_with_metrics
 
 load_dotenv()
+
+PROMPT_VERSION = "screening-v3"
 
 INSTRUCTIONS = """
 Vais analisar o texto de um pedido de compra escrito por um utilizador.
@@ -46,8 +49,14 @@ is_suspicious: true
 """
 
 
-def screen_input(text, client) -> InputScreening | None:
-    response = client.responses.parse(
+def screen_input(
+    text: str, client, calls: list[LLMCall] | None = None
+) -> InputScreening | None:
+    response = parse_with_metrics(
+        client,
+        "screening",
+        PROMPT_VERSION,
+        calls,
         model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
         instructions=INSTRUCTIONS,
         input=text,

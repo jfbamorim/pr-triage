@@ -3,10 +3,13 @@ import os
 from dotenv import load_dotenv
 from openai import OpenAI
 
-from pr_triage.domain.schemas import ResultSummary, WorkflowResult
+from pr_triage.domain.schemas import LLMCall, ResultSummary, WorkflowResult
 from pr_triage.domain.status import EscalationReason
+from pr_triage.llm.metrics import parse_with_metrics
 
 load_dotenv()
+
+PROMPT_VERSION = "summary-v3"
 
 INSTRUCTIONS = """Vais explicar a um colega de Compras o resultado da triagem de um pedido de compra.
 A decisão já foi tomada pelo sistema. Não a alteres, não aprovas nem rejeitas o pedido.
@@ -79,8 +82,14 @@ def build_input(result: WorkflowResult) -> str:
     return "\n".join(lines)
 
 
-def summarize_result(result: WorkflowResult, client: OpenAI) -> ResultSummary | None:
-    response = client.responses.parse(
+def summarize_result(
+    result: WorkflowResult, client: OpenAI, calls: list[LLMCall] | None = None
+) -> ResultSummary | None:
+    response = parse_with_metrics(
+        client,
+        "summary",
+        PROMPT_VERSION,
+        calls,
         model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
         instructions=INSTRUCTIONS,
         input=build_input(result),

@@ -37,6 +37,15 @@ class ResultSummary(BaseModel):
     cited_chunk_ids: list[str]
 
 
+class LLMCall(BaseModel):
+    step: str
+    model: str
+    prompt_version: str | None = None
+    input_tokens: int
+    output_tokens: int
+    latency: float
+
+
 class WorkflowResult(BaseModel):
     status: Status
     reason: Reason | None = None
@@ -47,3 +56,4 @@ class WorkflowResult(BaseModel):
     escalation: EscalationReason | None = None
     evidence: list[Evidence] = []
     summary: ResultSummary | None = None
+    calls: list[LLMCall] = []

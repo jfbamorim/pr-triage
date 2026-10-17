@@ -17,6 +17,7 @@ from pr_triage.domain.labels import (
 from pr_triage.domain.merge import merge_requests
 from pr_triage.domain.schemas import (
     Evidence,
+    LLMCall,
     PurchaseRequest,
     ResultSummary,
     WorkflowResult,
@@ -53,10 +54,12 @@ class StepEvent(BaseModel):
 
 
 def _gather_evidence(
-    pr: PurchaseRequest, band: Band, client: OpenAI
+    pr: PurchaseRequest, band: Band, client: OpenAI, calls: list[LLMCall]
 ) -> tuple[list[Evidence], EscalationReason | None]:
     try:
-        selected = add_linked_clauses(select_context(retrieve(build_query(pr), client)))
+        selected = add_linked_clauses(
+            select_context(retrieve(build_query(pr), client, calls=calls))
+        )
         clauses = add_request_clauses(selected, pr, band)
         tier = fetch_by_id(TIER_CLAUSES[band])
     except Exception:
@@ -70,11 +73,13 @@ def _gather_evidence(
     return evidence, None
 
 
-def _summarize(result: WorkflowResult, client: OpenAI) -> ResultSummary | None:
+def _summarize(
+    result: WorkflowResult, client: OpenAI, calls: list[LLMCall]
+) -> ResultSummary | None:
     if not result.evidence:
         return None
     try:
-        summary = summarize_result(result, client)
+        summary = summarize_result(result, client, calls)
     except Exception:
         return None
     if summary is None:
@@ -99,16 +104,20 @@ def _describe_request(pr: PurchaseRequest) -> str:
 def iter_workflow(
     text: str, client: OpenAI, previous: PurchaseRequest | None = None
 ) -> Iterator[StepEvent | WorkflowResult]:
+    calls: list[LLMCall] = []
+
     yield StepEvent(step=Step.SCREENING, state="running")
-    screening = screen_input(text, client)
+    screening = screen_input(text, client, calls)
     if screening is None or screening.is_suspicious:
         yield StepEvent(step=Step.SCREENING, state="failed", detail="Texto suspeito")
-        yield WorkflowResult(status=Status.REJECTED, reason=Reason.SUSPICIOUS_ACTIVITY)
+        yield WorkflowResult(
+            status=Status.REJECTED, reason=Reason.SUSPICIOUS_ACTIVITY, calls=calls
+        )
         return
     yield StepEvent(step=Step.SCREENING, state="done", detail="Texto normal")
 
     yield StepEvent(step=Step.EXTRACTION, state="running")
-    pr = extract_request(text, client)
+    pr = extract_request(text, client, calls)
     if pr is None:
         pr = previous or PurchaseRequest(
             item=None,
@@ -142,6 +151,7 @@ def iter_workflow(
             request=pr,
             missing=missing,
             invalid=invalid,
+            calls=calls,
         )
         return
     if status == Status.NEEDS_INFO:
@@ -150,7 +160,7 @@ def iter_workflow(
             state="failed",
             detail="Falta: " + ", ".join(FIELD_LABELS[f] for f in missing),
         )
-        yield WorkflowResult(status=status, request=pr, missing=missing)
+        yield WorkflowResult(status=status, request=pr, missing=missing, calls=calls)
         return
     yield StepEvent(step=Step.VALIDATION, state="done", detail="Dados completos")
 
@@ -159,7 +169,7 @@ def iter_workflow(
     yield StepEvent(step=Step.BAND, state="done", detail=BAND_LABELS[band])
 
     yield StepEvent(step=Step.POLICY, state="running")
-    evidence, escalation = _gather_evidence(pr, band, client)
+    evidence, escalation = _gather_evidence(pr, band, client, calls)
     if escalation in (
         EscalationReason.RETRIEVAL_ERROR,
         EscalationReason.NO_POLICY_EVIDENCE,
@@ -188,14 +198,14 @@ def iter_workflow(
     )
 
     yield StepEvent(step=Step.SUMMARY, state="running")
-    summary = _summarize(result, client)
+    summary = _summarize(result, client, calls)
     if summary is None:
         yield StepEvent(step=Step.SUMMARY, state="failed", detail="Resumo indisponível")
     else:
         count = len(summary.cited_chunk_ids)
         noun = "cláusula citada" if count == 1 else "cláusulas citadas"
         yield StepEvent(step=Step.SUMMARY, state="done", detail=f"{count} {noun}")
-    yield result.model_copy(update={"summary": summary})
+    yield result.model_copy(update={"summary": summary, "calls": calls})
 
 
 def run_workflow(
