@@ -109,6 +109,19 @@ def render_request(result: WorkflowResult) -> str:
     return f'<dl class="kv">{items}</dl>'
 
 
+def render_usage(result: WorkflowResult) -> None:
+    if not result.calls:
+        return
+    count = len(result.calls)
+    tokens = sum(c.input_tokens + c.output_tokens for c in result.calls)
+    latency = sum(c.latency for c in result.calls)
+    noun = "chamada" if count == 1 else "chamadas"
+    st.markdown(
+        f'<div class="muted">{count} {noun} · {tokens} tokens · {latency:.1f} s</div>',
+        unsafe_allow_html=True,
+    )
+
+
 def render_result(result: WorkflowResult) -> None:
     if result.status == Status.REJECTED:
         if result.reason == Reason.SUSPICIOUS_ACTIVITY:
@@ -123,10 +136,17 @@ def render_result(result: WorkflowResult) -> None:
     if result.status == Status.NEEDS_INFO:
         text = "Faltam dados: " + ", ".join(FIELD_LABELS[f] for f in result.missing)
         st.markdown(banner("amber", "⚠", text), unsafe_allow_html=True)
-        st.markdown(
-            '<div class="muted">Responde na caixa de texto com a informação em falta.</div>',
-            unsafe_allow_html=True,
-        )
+        if result.follow_up:
+            with st.container(border=True):
+                st.markdown(
+                    '<div class="card-title">Pergunta</div>', unsafe_allow_html=True
+                )
+                st.write(result.follow_up)
+        else:
+            st.markdown(
+                '<div class="muted">Responde na caixa de texto com a informação em falta.</div>',
+                unsafe_allow_html=True,
+            )
         return
 
     if result.escalation:
@@ -238,3 +258,4 @@ if submit and st.session_state.text.strip():
 if st.session_state.result is not None:
     with result_box:
         render_result(st.session_state.result)
+        render_usage(st.session_state.result)

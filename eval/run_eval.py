@@ -6,10 +6,12 @@ from pathlib import Path
 
 from openai import OpenAI
 
+from pr_triage.domain.followup import fallback_followup
 from pr_triage.domain.schemas import LLMCall, WorkflowResult
 from pr_triage.llm.extract_purchase_request import PROMPT_VERSION as EXTRACTION_VERSION
 from pr_triage.llm.screen_input import PROMPT_VERSION as SCREENING_VERSION
 from pr_triage.llm.summarize_result import PROMPT_VERSION as SUMMARY_VERSION
+from pr_triage.llm.write_followup import PROMPT_VERSION as FOLLOWUP_VERSION
 from pr_triage.workflow import run_workflow
 
 CASES_PATH = Path("data/eval/cases.jsonl")
@@ -51,6 +53,14 @@ def summary_values(result: WorkflowResult) -> dict:
         "text": result.summary.text,
         "cited": result.summary.cited_chunk_ids,
     }
+
+
+def follow_up_values(result: WorkflowResult) -> dict:
+    if result.follow_up is None:
+        return {"state": "n/a", "text": None}
+    if result.follow_up == fallback_followup(result.missing):
+        return {"state": "fallback", "text": result.follow_up}
+    return {"state": "ok", "text": result.follow_up}
 
 
 def call_cost(call: dict) -> float:
@@ -102,6 +112,7 @@ def run_case(case: dict, client: OpenAI) -> dict:
             "latency": time.perf_counter() - start,
             "actual": None,
             "summary": {"state": "n/a", "text": None, "cited": []},
+            "follow_up": {"state": "n/a", "text": None},
             "evidence": [],
             "calls": [],
         }
@@ -115,6 +126,7 @@ def run_case(case: dict, client: OpenAI) -> dict:
         "latency": latency,
         "actual": actual_values(result),
         "summary": summary_values(result),
+        "follow_up": follow_up_values(result),
         "evidence": [
             {"chunk_id": e.chunk_id, "score": e.score} for e in result.evidence
         ],
@@ -171,6 +183,11 @@ def print_summary(results: list[dict]) -> None:
     if with_summary:
         print(f"Resumos válidos: {ok}/{len(with_summary)}")
 
+    with_follow_up = [r for r in results if r["follow_up"]["state"] != "n/a"]
+    follow_up_ok = sum(r["follow_up"]["state"] == "ok" for r in with_follow_up)
+    if with_follow_up:
+        print(f"Perguntas do modelo válidas: {follow_up_ok}/{len(with_follow_up)}")
+
     mean_latency = sum(r["latency"] for r in results) / len(results)
     print(f"Latência média: {mean_latency:.1f}s")
 
@@ -189,7 +206,10 @@ def main() -> None:
         print("Nenhum caso encontrado.")
         return
 
-    print(f"Prompts: {SCREENING_VERSION}, {EXTRACTION_VERSION}, {SUMMARY_VERSION}\n")
+    print(
+        f"Prompts: {SCREENING_VERSION}, {EXTRACTION_VERSION}, "
+        f"{SUMMARY_VERSION}, {FOLLOWUP_VERSION}\n"
+    )
 
     client = OpenAI()
     results = []
@@ -202,6 +222,8 @@ def main() -> None:
             print(f"      {failure}")
         if outcome["summary"]["state"] == "failed":
             print("      resumo: falhou")
+        if outcome["follow_up"]["state"] != "n/a":
+            print(f"      pergunta ({outcome['follow_up']['state']}): {outcome['follow_up']['text']}")
 
     print_summary(results)
 
