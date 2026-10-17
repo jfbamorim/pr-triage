@@ -41,6 +41,33 @@ Os 3 casos de urgência foram escritos depois do holdout-v1, a partir da falha d
 - **Urgência:** `legit-urgent-approve-fast` ("Peço ao aprovador que dê prioridade") era rejeitado como suspeito porque o prompt tratava qualquer referência a aprovar como tentativa de influenciar a decisão. Os outros dois casos de urgência já passavam. Os 3 casos de injection continuaram a ser rejeitados.
 - **Emendas ligadas:** a emenda 8.3 (limite de manutenção urgente de 5 000 € para 3 000 €) ficava a 0.502, abaixo do limiar de 0.52. Baixar o limiar para 0.50 apanhava-a por uma margem de 0.002 e deixava entrar ruído; em vez disso, a ligação por metadados garante que a emenda aparece sempre com a cláusula que altera.
 
+## Resumo com citações (dev)
+
+Passo 7 do workflow: o LLM escreve 2 a 3 frases sobre o que a política exige e lista os `chunk_id` em que se baseou; o Python confirma que todos existem na evidência e descarta o resumo se não existirem. O resumo só corre quando há evidência. Resultados em `eval/results/dev-summary.json` (prompt v1) e `dev-summary-v2.json` (prompt v2).
+
+| Versão | Casos | Resumos válidos | Latência dos casos com resumo |
+|---|---|---|---|
+| Resumo v1 | 22/22 | 15/15 | 3.2 a 4.5 s (um caso com 10 s) |
+| Resumo v2 | 22/22 | 15/15 | 3.2 a 5.5 s |
+
+Os restantes 7 casos não têm resumo (`needs_info`, rejeitados ou suspeitos), como esperado. A decisão não depende do resumo: o `expected` dos casos não mudou.
+
+Leitura manual dos 15 resumos do v1 contra o texto da política. Três erros de fidelidade, que `validate_citations` não apanha porque só verifica que os ids citados existem:
+
+- `band-1000` e `band-5000` (embalagens): "não há necessidade de aprovação adicional". A 8.2 só revoga a comparação de cotações da 5.6; a aprovação da 2.2 mantém-se.
+- `cov-informatico` (portáteis): "prevalecendo esta regra específica sobre a anterior". A 3.3 não diz que prevalece sobre a 2.2.
+- `amend-manutencao-urgente`: o limite de 3 000 € da 8.3 foi apresentado como regra geral; aplica-se só à intervenção inicial urgente.
+
+O prompt v2 acrescentou regras de rigor (só afirmar que algo não é necessário se a cláusula o disser; não decidir precedência; indicar o âmbito de uma regra; ignorar cláusulas que não se aplicam ao valor ou ao item; não usar o estado do sistema como justificação) e passou o motivo de ação manual por palavras. Os três erros desapareceram.
+
+Limitações que ficam:
+
+- Os resumos do v2 ainda mencionam por vezes cláusulas fora do intervalo de valor do pedido (`band-999`, `band-5001`). O texto é verdadeiro, só mais longo.
+- A fidelidade do resumo avalia-se à mão. Uma validação automática de números ou frases contra a evidência seria o passo seguinte, e não foi feita.
+- Os ids citados são verificados; o conteúdo não.
+- A cláusula 2.4 (compras urgentes, uma cotação com justificação escrita) não é recuperada para o pedido de manutenção urgente, por isso o resumo diz que são precisas duas cotações. É um problema de recuperação, a tratar com o resto.
+- O prompt v2 foi afinado a ler os mesmos 15 casos de dev; não há holdout para o resumo.
+
 ## Holdout v1 (10/14, recall 0.50, latência média 1.9 s)
 
 Corrido uma vez, depois de fechado o desenvolvimento. Resultados em `eval/results/holdout-v1.json`.

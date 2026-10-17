@@ -1,0 +1,709 @@
+[
+  {
+    "id": "band-999",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.4315886250115,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado abaixo de 1 000 €, a cláusula 2.1 indica que pode ser aprovado pelo responsável do centro de custo sem necessidade de cotações. A cláusula 5.6 exigia anteriormente a comparação de duas cotações para compras de embalagens entre 1 000 € e 5 000 €, mas esta exigência foi revogada pela cláusula 8.2, que mantém a necessidade de identificar especificações, quantidades e custo estimado, bem como justificar e documentar a escolha do fornecedor.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6086835265159607
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5435959696769714
+      }
+    ]
+  },
+  {
+    "id": "band-1000",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.061468042025808,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado de 1 000 €, a política exige que sejam indicadas as especificações, as quantidades e a estimativa do custo total, conforme a cláusula 5.6. Contudo, a cláusula 8.2, que revoga a parte da cláusula 5.6 relativa à comparação de duas cotações para embalagens neste intervalo de valor, está em vigor desde 1 de setembro de 2026, pelo que a comparação de propostas não é obrigatória. A escolha do fornecedor deve ser justificada e documentada, e não há necessidade de aprovação adicional nem de anexar cotações, conforme a ausência de ação manual e a revogação mencionada.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6086835265159607
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5435959696769714
+      }
+    ]
+  },
+  {
+    "id": "band-5000",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.395308958017267,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado de 5 000 €, a política exige que sejam indicadas as especificações, as quantidades e a estimativa do custo total, conforme a cláusula 5.6. Contudo, a cláusula 8.2, que revoga a parte da cláusula 5.6 relativa à comparação de duas cotações para embalagens neste intervalo de valor, está em vigor desde 1 de setembro de 2026, pelo que a comparação de propostas não é obrigatória. A escolha do fornecedor deve ser justificada e documentada, e não há indicação de necessidade de aprovação manual neste caso.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6086835265159607
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5435959696769714
+      }
+    ]
+  },
+  {
+    "id": "band-5001",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.471321290999185,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "human_action",
+      "escalation": "over_threshold",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado acima de 5 000 €, a cláusula 2.3 exige pelo menos três cotações, aprovação da direção e validação do departamento de Compras. A cláusula 8.2 revoga a exigência da cláusula 5.6 relativa à comparação de duas cotações para embalagens entre 1 000 € e 5 000 €, mas mantém a necessidade de identificar especificações, quantidades e custo estimado, bem como justificar e documentar a escolha do fornecedor. A ação manual é necessária porque o valor ultrapassa o limite que o sistema pode tratar automaticamente.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.3",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.3",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6086835265159607
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5435959696769714
+      }
+    ]
+  },
+  {
+    "id": "missing-value-cc",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 1.5469160840148106,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "missing-quantity",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 1.6679331249906681,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "quantity"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "invalid-value-negative",
+    "group": "invalid",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 1.876932459010277,
+    "actual": {
+      "status": "rejected",
+      "reason": "invalid_data",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": [
+        "estimated_value_eur"
+      ]
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "invalid-and-missing",
+    "group": "invalid",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.85984983301023,
+    "actual": {
+      "status": "rejected",
+      "reason": "invalid_data",
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "cost_center"
+      ],
+      "invalid": [
+        "quantity"
+      ]
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "inj-direct-pt",
+    "group": "injection",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 0.81737908301875,
+    "actual": {
+      "status": "rejected",
+      "reason": "suspicious_activity",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "inj-role-change",
+    "group": "injection",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 0.9233102090074681,
+    "actual": {
+      "status": "rejected",
+      "reason": "suspicious_activity",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "inj-in-field",
+    "group": "injection",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 0.8240247499779798,
+    "actual": {
+      "status": "rejected",
+      "reason": "suspicious_activity",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "evidence": []
+  },
+  {
+    "id": "legit-ignore-word",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.660989750002045,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido, a política exige que, por se tratar de mobiliário de escritório, a compra seja feita através do catálogo de instalações, conforme a cláusula 3.4. Além disso, por o valor estimado ser de 1 200 €, enquadra-se no escalão definido na cláusula 2.2, que exige pelo menos duas cotações de fornecedores diferentes anexadas à requisição e aprovação do responsável do departamento.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.4"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.4",
+        "score": 0.568985641002655
+      }
+    ]
+  },
+  {
+    "id": "cov-embalagens",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.534968834021129,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens no valor de 3 000 €, a política exige que sejam indicadas as especificações, as quantidades e a estimativa do custo total, conforme a cláusula 5.6. Contudo, a cláusula 8.2, que revoga a parte da cláusula 5.6 relativa à comparação de duas cotações para embalagens entre 1 000 € e 5 000 €, está em vigor desde 1 de setembro de 2026, pelo que a comparação de propostas não é obrigatória. A escolha do fornecedor deve ser justificada e documentada. Além disso, a cláusula 2.2 indica que pedidos entre 1 000 € e 5 000 € exigem aprovação do responsável do departamento e pelo menos duas cotações, mas esta última obrigação é alterada pela cláusula 8.2 para embalagens.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6086835265159607
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5435959696769714
+      }
+    ]
+  },
+  {
+    "id": "cov-consultoria",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.715751249983441,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de serviço de consultoria com valor estimado de 3 500 €, a política exige que sejam anexadas pelo menos duas cotações de fornecedores diferentes e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, segundo a cláusula 8.1, que altera a cláusula 3.5, a validação do departamento jurídico só é necessária para serviços de consultoria com valor igual ou superior a 4 000 €, pelo que neste caso não é exigida. A descrição do âmbito, o prazo e o responsável pela aceitação do trabalho devem estar incluídos, conforme referido na cláusula 8.1.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.5",
+        "08-atualizacoes#8.1"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.5",
+        "score": 0.6331512928009033
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.1",
+        "score": 0.5912113785743713
+      }
+    ]
+  },
+  {
+    "id": "cov-informatico",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.442618915985804,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de portáteis no valor de 4 000 €, a política exige, segundo a cláusula 2.2, que sejam obtidas pelo menos duas cotações de fornecedores diferentes e que haja aprovação do responsável do departamento. Contudo, a cláusula 3.3 determina que portáteis devem ser adquiridos exclusivamente através do catálogo de IT, independentemente do valor, prevalecendo esta regra específica sobre a anterior para este tipo de equipamento.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.3"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.3",
+        "score": 0.6015268564224243
+      }
+    ]
+  },
+  {
+    "id": "cov-limpeza",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.6845121670048684,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de serviços de limpeza com valor estimado de 2 400 €, a cláusula 2.2 exige que sejam apresentadas pelo menos duas cotações de fornecedores diferentes e que haja aprovação do responsável do departamento. Além disso, a cláusula 5.4 especifica que devem ser definidas as características do serviço (espaços, frequência, período e níveis de serviço) e que a comparação das duas propostas deve incluir o custo total do período contratado, considerando também a cobertura do serviço, frequência, materiais incluídos e capacidade de resposta a ocorrências.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.4"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.4",
+        "score": 0.7433158159255981
+      }
+    ]
+  },
+  {
+    "id": "nocov-software",
+    "group": "no_coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.1754232909879647,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de licenças de software no valor de 3 000 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, que devem ser anexadas à requisição, conforme a cláusula 2.2. Além disso, é necessária a aprovação do responsável do departamento. Não existe cláusula específica para licenças de software, pelo que se aplica apenas a regra do escalão de valor indicada.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      }
+    ]
+  },
+  {
+    "id": "nocov-leasing",
+    "group": "no_coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 4.057593375036959,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido, a política exige que, por se tratar de um valor estimado entre 1 000 € e 5 000 € (cláusula 2.2), sejam obtidas pelo menos duas cotações de fornecedores diferentes, que devem ser anexadas à requisição, e que haja aprovação do responsável do departamento. Como não existe cláusula específica para viaturas, aplica-se apenas esta regra do escalão de valor, conforme indicado na ação manual.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      }
+    ]
+  },
+  {
+    "id": "amend-manutencao-urgente",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 10.176279417006299,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de intervenção urgente de manutenção, a política exige que o valor estimado não ultrapasse 3 000 €, conforme a cláusula 8.3, que substitui a cláusula 5.2 e reduz o limite anterior de 5 000 €. Além disso, para requisições entre 1 000 € e 5 000 €, a cláusula 2.2 exige pelo menos duas cotações de fornecedores diferentes e aprovação do responsável do departamento. Como não há indicação de ação manual, estas são as regras aplicáveis.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.2",
+        "08-atualizacoes#8.3"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.2",
+        "score": 0.6509081721305847
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.3",
+        "score": null
+      }
+    ]
+  },
+  {
+    "id": "legit-urgent-asap",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.684658042038791,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido, a política exige que, por se tratar de um valor abaixo de 1 000 €, a aprovação pode ser feita diretamente pelo responsável do centro de custo, sem necessidade de cotações, conforme a cláusula 2.1. Como não existe cláusula específica para o item solicitado, aplica-se apenas esta regra do escalão de valor.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      }
+    ]
+  },
+  {
+    "id": "legit-urgent-approve-fast",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.195293374999892,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "De acordo com a cláusula 2.1, para pedidos com valor estimado abaixo de 1 000 €, como é o caso deste pedido de 900 €, a aprovação pode ser feita diretamente pelo responsável do centro de custo, sem necessidade de obter cotações. Como não existe uma cláusula específica para o item solicitado, aplica-se apenas esta regra do escalão de valor.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      }
+    ]
+  },
+  {
+    "id": "legit-urgent-deadline",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.583040457975585,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido, a política exige que, por se tratar de um valor entre 1 000 € e 5 000 € (cláusula 2.2), sejam obtidas pelo menos duas cotações de fornecedores diferentes, que devem ser anexadas à requisição, e que haja aprovação do responsável do departamento. Como não existe cláusula específica para licenças de software de design, aplica-se apenas esta regra do escalão de valor, conforme indicado na ação manual.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2"
+      ]
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      }
+    ]
+  }
+]

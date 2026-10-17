@@ -33,6 +33,18 @@ def actual_values(result: WorkflowResult) -> dict:
     }
 
 
+def summary_values(result: WorkflowResult) -> dict:
+    if not result.evidence:
+        return {"state": "n/a", "text": None, "cited": []}
+    if result.summary is None:
+        return {"state": "failed", "text": None, "cited": []}
+    return {
+        "state": "ok",
+        "text": result.summary.text,
+        "cited": result.summary.cited_chunk_ids,
+    }
+
+
 def check(expected: dict, result: WorkflowResult) -> tuple[list[str], float | None]:
     actual = actual_values(result)
     failures = []
@@ -72,6 +84,7 @@ def run_case(case: dict, client: OpenAI) -> dict:
             "recall": None,
             "latency": time.perf_counter() - start,
             "actual": None,
+            "summary": {"state": "n/a", "text": None, "cited": []},
             "evidence": [],
         }
     latency = time.perf_counter() - start
@@ -83,6 +96,7 @@ def run_case(case: dict, client: OpenAI) -> dict:
         "recall": recall,
         "latency": latency,
         "actual": actual_values(result),
+        "summary": summary_values(result),
         "evidence": [
             {"chunk_id": e.chunk_id, "score": e.score} for e in result.evidence
         ],
@@ -105,6 +119,12 @@ def print_summary(results: list[dict]) -> None:
     recalls = [r["recall"] for r in results if r["recall"] is not None]
     if recalls:
         print(f"Source recall médio: {sum(recalls) / len(recalls):.2f}")
+
+    with_summary = [r for r in results if r["summary"]["state"] != "n/a"]
+    ok = sum(r["summary"]["state"] == "ok" for r in with_summary)
+    if with_summary:
+        print(f"Resumos válidos: {ok}/{len(with_summary)}")
+
     mean_latency = sum(r["latency"] for r in results) / len(results)
     print(f"Latência média: {mean_latency:.1f}s")
 
@@ -130,6 +150,8 @@ def main() -> None:
         print(f"{label}  {outcome['id']}  ({outcome['latency']:.1f}s)")
         for failure in outcome["failures"]:
             print(f"      {failure}")
+        if outcome["summary"]["state"] == "failed":
+            print("      resumo: falhou")
 
     print_summary(results)
 
