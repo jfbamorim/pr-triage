@@ -1,0 +1,392 @@
+[
+  {
+    "id": "missing-value-cc",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.3072718330076896,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar o valor e o centro de custo para as 20 cadeiras de escritório, por favor?"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 493,
+        "output_tokens": 25,
+        "latency": 1.4052367500262335
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 687,
+        "output_tokens": 42,
+        "latency": 1.002693000016734
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 223,
+        "output_tokens": 28,
+        "latency": 0.8989342500572093
+      }
+    ]
+  },
+  {
+    "id": "missing-quantity",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.5459444589796476,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "quantity"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar a quantidade para o pedido de embalagens? Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 499,
+        "output_tokens": 27,
+        "latency": 0.7940372920129448
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 693,
+        "output_tokens": 42,
+        "latency": 0.9467074169660918
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 219,
+        "output_tokens": 21,
+        "latency": 0.8047498340019956
+      }
+    ]
+  },
+  {
+    "id": "missing-item",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.7003602919867262,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "item"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar o item para completar o pedido de compra? Já tenho a quantidade (5), o valor estimado (300.0 EUR) e o centro de custo (1500). Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 499,
+        "output_tokens": 29,
+        "latency": 1.1411592499935068
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 693,
+        "output_tokens": 39,
+        "latency": 1.4442841249983758
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 219,
+        "output_tokens": 47,
+        "latency": 1.1145107500487939
+      }
+    ]
+  },
+  {
+    "id": "missing-cost-center",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.662056749977637,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar o centro de custo para o pedido dos 4 monitores com valor estimado de 600 EUR? Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 495,
+        "output_tokens": 25,
+        "latency": 0.7074566669762135
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 689,
+        "output_tokens": 41,
+        "latency": 1.0618297919863835
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 220,
+        "output_tokens": 33,
+        "latency": 0.8924772089812905
+      }
+    ]
+  },
+  {
+    "id": "missing-value",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.7644442500313744,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, para completar o pedido das 2 cadeiras ergonómicas para o centro de custo 1300, poderia indicar o valor, por favor?"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 501,
+        "output_tokens": 27,
+        "latency": 0.8200018329662271
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 695,
+        "output_tokens": 44,
+        "latency": 1.023318958003074
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 220,
+        "output_tokens": 36,
+        "latency": 0.9207415420096368
+      }
+    ]
+  },
+  {
+    "id": "missing-all",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.7777340000029653,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "item",
+        "quantity",
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes, por favor, indicar o item, a quantidade, o valor e o centro de custo para completar o pedido? Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 490,
+        "output_tokens": 28,
+        "latency": 0.9241451669950038
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 684,
+        "output_tokens": 38,
+        "latency": 0.9209564999910071
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 227,
+        "output_tokens": 34,
+        "latency": 0.9322812919854186
+      }
+    ]
+  },
+  {
+    "id": "missing-urgent",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.169844207994174,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar o valor e o centro de custo para as 3 cadeiras de escritório, por favor?"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 495,
+        "output_tokens": 29,
+        "latency": 1.0124805420055054
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 689,
+        "output_tokens": 42,
+        "latency": 1.2272612919914536
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 223,
+        "output_tokens": 28,
+        "latency": 0.9297776669845916
+      }
+    ]
+  }
+]
