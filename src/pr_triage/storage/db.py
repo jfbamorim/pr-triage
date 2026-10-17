@@ -29,6 +29,7 @@ def _fields(result: WorkflowResult) -> tuple:
         result.status.value,
         result.reason.value if result.reason else None,
         result.band.value if result.band else None,
+        result.model_dump_json(),
     )
 
 
@@ -48,6 +49,7 @@ def init_db() -> None:
                 status TEXT NOT NULL,
                 reason TEXT,
                 band TEXT,
+                result_json TEXT,
                 created_at TEXT NOT NULL,
                 updated_at TEXT NOT NULL
             )
@@ -63,8 +65,8 @@ def create_request(result: WorkflowResult) -> int:
             INSERT INTO purchase_requests
                 (item, quantity, estimated_value_eur, cost_center,
                  category, is_urgent, mentions_framework_contract,
-                 status, reason, band, created_at, updated_at)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                 status, reason, band, result_json, created_at, updated_at)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """,
             (*_fields(result), now, now),
         )
@@ -78,7 +80,7 @@ def update_request(request_id: int, result: WorkflowResult) -> None:
             UPDATE purchase_requests
             SET item = ?, quantity = ?, estimated_value_eur = ?, cost_center = ?,
                 category = ?, is_urgent = ?, mentions_framework_contract = ?,
-                status = ?, reason = ?, band = ?, updated_at = ?
+                status = ?, reason = ?, band = ?, result_json = ?, updated_at = ?
             WHERE id = ?
             """,
             (*_fields(result), _now(), request_id),
