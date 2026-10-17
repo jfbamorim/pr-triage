@@ -7,6 +7,7 @@ from pydantic import BaseModel
 
 from pr_triage.domain.band import Band, determine_band
 from pr_triage.domain.citations import validate_citations
+from pr_triage.domain.labels import BAND_LABELS, ESCALATION_LABELS
 from pr_triage.domain.merge import merge_requests
 from pr_triage.domain.schemas import (
     Evidence,
@@ -124,7 +125,7 @@ def iter_workflow(
 
     yield StepEvent(step=Step.BAND, state="running")
     band = determine_band(pr.estimated_value_eur)
-    yield StepEvent(step=Step.BAND, state="done", detail=band.value)
+    yield StepEvent(step=Step.BAND, state="done", detail=BAND_LABELS[band])
 
     yield StepEvent(step=Step.POLICY, state="running")
     evidence, escalation = _gather_evidence(pr, band, client)
@@ -132,14 +133,20 @@ def iter_workflow(
         EscalationReason.RETRIEVAL_ERROR,
         EscalationReason.NO_POLICY_EVIDENCE,
     ):
-        yield StepEvent(step=Step.POLICY, state="failed", detail=escalation.value)
+        yield StepEvent(
+            step=Step.POLICY, state="failed", detail=ESCALATION_LABELS[escalation]
+        )
     else:
         yield StepEvent(
             step=Step.POLICY, state="done", detail=f"{len(evidence)} cláusulas"
         )
 
     yield StepEvent(step=Step.DECISION, state="running")
-    decision = f"ação manual ({escalation.value})" if escalation else band.value
+    decision = (
+        f"Ação manual: {ESCALATION_LABELS[escalation]}"
+        if escalation
+        else BAND_LABELS[band]
+    )
     yield StepEvent(step=Step.DECISION, state="done", detail=decision)
     result = WorkflowResult(
         status=status,
@@ -154,11 +161,9 @@ def iter_workflow(
     if summary is None:
         yield StepEvent(step=Step.SUMMARY, state="failed", detail="Resumo indisponível")
     else:
-        yield StepEvent(
-            step=Step.SUMMARY,
-            state="done",
-            detail=f"citações: {len(summary.cited_chunk_ids)}",
-        )
+        count = len(summary.cited_chunk_ids)
+        noun = "cláusula citada" if count == 1 else "cláusulas citadas"
+        yield StepEvent(step=Step.SUMMARY, state="done", detail=f"{count} {noun}")
     yield result.model_copy(update={"summary": summary})
 
 

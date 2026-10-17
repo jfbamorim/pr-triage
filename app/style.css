@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.stApp,
+.stApp textarea,
+.stApp button {
+  font-family: 'Inter', sans-serif;
+}
+
+.stAppDeployButton {
+  display: none;
+}
+
+.block-container {
+  max-width: 1200px;
+  padding-top: 5rem;
+}
+
+[data-testid="stVerticalBlockBorderWrapper"] {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(20, 30, 50, 0.06);
+}
+
+.stApp textarea {
+  border-radius: 10px;
+}
+
+.stButton button {
+  border-radius: 8px;
+  font-weight: 500;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  margin-bottom: 1.5rem;
+}
+
+.topbar-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: #1d4fb8;
+  color: #ffffff;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.topbar-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #1a2433;
+}
+
+.badge,
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  background: #e6eefc;
+  color: #1d4fb8;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.card-title {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #1a2433;
+}
+
+.stepper {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 8px;
+}
+
+.step {
+  position: relative;
+  display: flex;
+  gap: 14px;
+  padding-bottom: 16px;
+}
+
+.step:last-child {
+  padding-bottom: 0;
+}
+
+.step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 13px;
+  top: 28px;
+  bottom: 0;
+  width: 2px;
+  background: #dfe4ec;
+}
+
+.step-icon {
+  z-index: 1;
+  display: flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: 700;
+  box-sizing: border-box;
+}
+
+.step-icon.pending {
+  border: 2px solid #cbd2dc;
+  background: #ffffff;
+}
+
+.step-icon.running {
+  border: 2px solid #c9d8f5;
+  border-top-color: #1d4fb8;
+  background: #ffffff;
+  animation: spin 0.9s linear infinite;
+}
+
+.step-icon.done {
+  background: #2e9e5b;
+  color: #ffffff;
+}
+
+.step-icon.failed {
+  background: #d64545;
+  color: #ffffff;
+}
+
+.step-label {
+  font-weight: 600;
+  color: #1a2433;
+}
+
+.step-detail {
+  font-size: 0.9rem;
+  color: #5b6676;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  margin-bottom: 0.75rem;
+  border: 1px solid;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.banner.green {
+  background: #e7f6ec;
+  border-color: #bfe5cc;
+  color: #17653a;
+}
+
+.banner.amber {
+  background: #fff6dc;
+  border-color: #f1dd9c;
+  color: #8a5a00;
+}
+
+.banner.orange {
+  background: #fdeedf;
+  border-color: #f6cfa8;
+  color: #b4530a;
+}
+
+.banner.red {
+  background: #fdeaea;
+  border-color: #f3bcbc;
+  color: #a32020;
+}
+
+.kv {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2px;
+  margin: 0;
+}
+
+.kv dt {
+  font-size: 0.85rem;
+  color: #5b6676;
+}
+
+.kv dd {
+  margin: 0 0 12px 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+  color: #1a2433;
+}
+
+.muted {
+  font-size: 0.9rem;
+  color: #5b6676;
+}
+
+[data-testid="stExpander"] {
+  background: #ffffff;
+  border: 1px solid #e2e7ef;
+  border-radius: 10px;
+}
