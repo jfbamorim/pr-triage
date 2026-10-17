@@ -12,3 +12,17 @@ ESCALATION_LABELS = {
     EscalationReason.NO_POLICY_EVIDENCE: "sem evidência na política",
     EscalationReason.RETRIEVAL_ERROR: "erro na consulta da política",
 }
+
+FIELD_LABELS = {
+    "item": "item",
+    "quantity": "quantidade",
+    "estimated_value_eur": "valor estimado",
+    "cost_center": "centro de custo",
+}
+
+
+def format_eur(value: float | None) -> str:
+    if value is None:
+        return "—"
+    formatted = f"{value:,.2f}".replace(",", "\u00a0").replace(".", ",")
+    return f"{formatted}\u00a0€"

@@ -7,7 +7,12 @@ from pydantic import BaseModel
 
 from pr_triage.domain.band import Band, determine_band
 from pr_triage.domain.citations import validate_citations
-from pr_triage.domain.labels import BAND_LABELS, ESCALATION_LABELS
+from pr_triage.domain.labels import (
+    BAND_LABELS,
+    ESCALATION_LABELS,
+    FIELD_LABELS,
+    format_eur,
+)
 from pr_triage.domain.merge import merge_requests
 from pr_triage.domain.schemas import (
     Evidence,
@@ -72,6 +77,18 @@ def _summarize(result: WorkflowResult, client: OpenAI) -> ResultSummary | None:
     return summary
 
 
+def _describe_request(pr: PurchaseRequest) -> str:
+    quantity = pr.quantity if pr.quantity is not None else "—"
+    return " · ".join(
+        [
+            str(pr.item) if pr.item else "—",
+            f"quantidade {quantity}",
+            f"valor {format_eur(pr.estimated_value_eur)}",
+            f"centro de custo {pr.cost_center or '—'}",
+        ]
+    )
+
+
 def iter_workflow(
     text: str, client: OpenAI, previous: PurchaseRequest | None = None
 ) -> Iterator[StepEvent | WorkflowResult]:
@@ -94,10 +111,7 @@ def iter_workflow(
     yield StepEvent(
         step=Step.EXTRACTION,
         state="done",
-        detail=(
-            f"item={pr.item}, quantidade={pr.quantity}, "
-            f"valor={pr.estimated_value_eur}, centro de custo={pr.cost_center}"
-        ),
+        detail=_describe_request(pr),
     )
 
     yield StepEvent(step=Step.VALIDATION, state="running")
@@ -105,7 +119,9 @@ def iter_workflow(
     status = determine_status(missing, invalid)
     if status == Status.REJECTED:
         yield StepEvent(
-            step=Step.VALIDATION, state="failed", detail="Inválido: " + ", ".join(invalid)
+            step=Step.VALIDATION,
+            state="failed",
+            detail="Inválido: " + ", ".join(FIELD_LABELS[f] for f in invalid),
         )
         yield WorkflowResult(
             status=status,
@@ -117,7 +133,9 @@ def iter_workflow(
         return
     if status == Status.NEEDS_INFO:
         yield StepEvent(
-            step=Step.VALIDATION, state="failed", detail="Falta: " + ", ".join(missing)
+            step=Step.VALIDATION,
+            state="failed",
+            detail="Falta: " + ", ".join(FIELD_LABELS[f] for f in missing),
         )
         yield WorkflowResult(status=status, request=pr, missing=missing)
         return

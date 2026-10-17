@@ -5,7 +5,12 @@ import streamlit as st
 from openai import OpenAI
 
 from pr_triage.domain.band import Band
-from pr_triage.domain.labels import BAND_LABELS, ESCALATION_LABELS
+from pr_triage.domain.labels import (
+    BAND_LABELS,
+    ESCALATION_LABELS,
+    FIELD_LABELS,
+    format_eur,
+)
 from pr_triage.domain.schemas import WorkflowResult
 from pr_triage.domain.status import Reason, Status
 from pr_triage.service import Outcome, iter_process_message
@@ -80,13 +85,6 @@ def banner(kind: str, icon: str, text: str) -> str:
     )
 
 
-def format_eur(value: float | None) -> str:
-    if value is None:
-        return "—"
-    formatted = f"{value:,.2f}".replace(",", "\u00a0").replace(".", ",")
-    return f"{formatted}\u00a0€"
-
-
 def format_value(value) -> str:
     if value is None or value == "":
         return "—"
@@ -116,12 +114,14 @@ def render_result(result: WorkflowResult) -> None:
         if result.reason == Reason.SUSPICIOUS_ACTIVITY:
             text = "Pedido rejeitado: atividade suspeita"
         else:
-            text = "Pedido rejeitado: dados inválidos — " + ", ".join(result.invalid)
+            text = "Pedido rejeitado: dados inválidos — " + ", ".join(
+                FIELD_LABELS[f] for f in result.invalid
+            )
         st.markdown(banner("red", "✕", text), unsafe_allow_html=True)
         return
 
     if result.status == Status.NEEDS_INFO:
-        text = "Faltam dados: " + ", ".join(result.missing)
+        text = "Faltam dados: " + ", ".join(FIELD_LABELS[f] for f in result.missing)
         st.markdown(banner("amber", "⚠", text), unsafe_allow_html=True)
         st.markdown(
             '<div class="muted">Responde na caixa de texto com a informação em falta.</div>',
