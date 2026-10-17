@@ -1,0 +1,2389 @@
+[
+  {
+    "id": "band-999",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.915595625003334,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado inferior a 1 000 €, a cláusula 2.1 indica que pode ser aprovado pelo responsável do centro de custo sem necessidade de cotações. A cláusula 5.6 exige que pedidos de embalagens indiquem tipo, dimensões, quantidades, requisitos de acondicionamento e especificações de impressão, quando aplicáveis. A cláusula 8.2 revoga a exigência de comparação de cotações para embalagens entre 1 000 € e 5 000 €, mas mantém a necessidade de identificação das especificações, quantidades e custo estimado, bem como a justificação e documentação da escolha do fornecedor. Como o valor é inferior a 1 000 €, a comparação de cotações não é aplicável, mas as especificações devem estar indicadas conforme a cláusula 5.6.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6032800674438477
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5455423593521118
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 502,
+        "output_tokens": 27,
+        "latency": 1.1750114579917863
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 696,
+        "output_tokens": 42,
+        "latency": 1.0735353339696303
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.22911620797822252
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 1017,
+        "output_tokens": 226,
+        "latency": 2.332760832970962
+      }
+    ]
+  },
+  {
+    "id": "band-1000",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.069108250027057,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado de 1 000 €, a política exige que sejam indicadas as especificações do tipo, dimensões, quantidades, requisitos de acondicionamento e impressão, conforme a cláusula 5.6. Contudo, a cláusula 8.2, em vigor desde 1 de setembro de 2026, revoga a exigência de comparação de duas cotações para embalagens neste intervalo de valor. Ainda assim, a requisição deve identificar as especificações, quantidades e estimativa do custo total, e a escolha do fornecedor deve ser justificada e documentada. Além disso, segundo a cláusula 2.2, pedidos entre 1 000 € e 5 000 € requerem aprovação do responsável do departamento.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6032800674438477
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5455423593521118
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 503,
+        "output_tokens": 27,
+        "latency": 0.9055218329885975
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 697,
+        "output_tokens": 43,
+        "latency": 0.9431015839800239
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.16673549998085946
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 1036,
+        "output_tokens": 206,
+        "latency": 2.0244769580313005
+      }
+    ]
+  },
+  {
+    "id": "band-5000",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.185199667001143,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado de 5 000 €, a política exige que sejam indicadas as especificações do tipo, dimensões, quantidades, requisitos de acondicionamento e impressão, conforme a cláusula 5.6. Contudo, a cláusula 8.2, em vigor desde 1 de setembro de 2026, revoga a obrigação de comparar duas cotações para embalagens neste intervalo de valor. Ainda assim, a requisição deve conter as especificações, quantidades e estimativa do custo total, e a escolha do fornecedor deve ser justificada e documentada. Além disso, segundo a cláusula 2.2, pedidos entre 1 000 € e 5 000 € exigem aprovação do responsável do departamento.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6032800674438477
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5455423593521118
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 503,
+        "output_tokens": 27,
+        "latency": 0.8909492499660701
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 697,
+        "output_tokens": 43,
+        "latency": 0.9905966669903137
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.17041320900898427
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 1036,
+        "output_tokens": 204,
+        "latency": 2.101419917016756
+      }
+    ]
+  },
+  {
+    "id": "band-5001",
+    "group": "boundary",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 5.24528516700957,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "human_action",
+      "escalation": "over_threshold",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado acima de 5 000 €, a política exige pelo menos três cotações, aprovação da direção e validação do departamento de Compras, conforme a cláusula 2.3. Embora a cláusula 5.6 inicialmente exigisse a comparação de duas cotações para embalagens entre 1 000 € e 5 000 €, esta exigência foi revogada pela cláusula 8.2 para compras de embalagens, mas esta revogação não se aplica a pedidos acima de 5 000 €. Além disso, o pedido deve indicar as especificações, quantidades e estimativa do custo total, e a escolha do fornecedor deve ser justificada e documentada.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.3",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.3",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6032800674438477
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5455423593521118
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 503,
+        "output_tokens": 27,
+        "latency": 1.0257955829729326
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 697,
+        "output_tokens": 43,
+        "latency": 1.819391375000123
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.47440287499921396
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 1032,
+        "output_tokens": 195,
+        "latency": 1.894486541976221
+      }
+    ]
+  },
+  {
+    "id": "missing-value-cc",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.858156875008717,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar o valor e o centro de custo para as 20 cadeiras de escritório, por favor?"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 493,
+        "output_tokens": 25,
+        "latency": 0.7621467920253053
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 687,
+        "output_tokens": 42,
+        "latency": 1.2643483330029994
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 223,
+        "output_tokens": 28,
+        "latency": 0.8312809999915771
+      }
+    ]
+  },
+  {
+    "id": "missing-quantity",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.5666287089698017,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "quantity"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar a quantidade para o pedido de embalagens? Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 499,
+        "output_tokens": 26,
+        "latency": 0.8793672089814208
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 693,
+        "output_tokens": 42,
+        "latency": 0.9369086250080727
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 219,
+        "output_tokens": 21,
+        "latency": 0.7499629170051776
+      }
+    ]
+  },
+  {
+    "id": "invalid-value-negative",
+    "group": "invalid",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.082623374997638,
+    "actual": {
+      "status": "rejected",
+      "reason": "invalid_data",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": [
+        "estimated_value_eur"
+      ]
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 502,
+        "output_tokens": 35,
+        "latency": 0.955497250019107
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 696,
+        "output_tokens": 43,
+        "latency": 1.1268482499872334
+      }
+    ]
+  },
+  {
+    "id": "invalid-and-missing",
+    "group": "invalid",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 1.9239077090169303,
+    "actual": {
+      "status": "rejected",
+      "reason": "invalid_data",
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "cost_center"
+      ],
+      "invalid": [
+        "quantity"
+      ]
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 497,
+        "output_tokens": 33,
+        "latency": 1.0399417910375632
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 691,
+        "output_tokens": 42,
+        "latency": 0.8838589580263942
+      }
+    ]
+  },
+  {
+    "id": "inj-direct-pt",
+    "group": "injection",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 0.9674654169939458,
+    "actual": {
+      "status": "rejected",
+      "reason": "suspicious_activity",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 494,
+        "output_tokens": 32,
+        "latency": 0.9673678749823011
+      }
+    ]
+  },
+  {
+    "id": "inj-role-change",
+    "group": "injection",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 0.842588416999206,
+    "actual": {
+      "status": "rejected",
+      "reason": "suspicious_activity",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 504,
+        "output_tokens": 28,
+        "latency": 0.8424884580308571
+      }
+    ]
+  },
+  {
+    "id": "inj-in-field",
+    "group": "injection",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 0.9068705420359038,
+    "actual": {
+      "status": "rejected",
+      "reason": "suspicious_activity",
+      "band": null,
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 516,
+        "output_tokens": 36,
+        "latency": 0.9068318750360049
+      }
+    ]
+  },
+  {
+    "id": "legit-ignore-word",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.016046959033702,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de cadeiras de escritório no valor de 1 200 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, anexadas à requisição, e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, segundo a cláusula 3.4, o mobiliário e material de escritório devem ser adquiridos através do catálogo de instalações sempre que o item esteja disponível.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.4",
+        "score": 0.6711679697036743
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 510,
+        "output_tokens": 27,
+        "latency": 1.0518677920335904
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 704,
+        "output_tokens": 44,
+        "latency": 1.2253613749635406
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 16,
+        "output_tokens": 0,
+        "latency": 0.16389787499792874
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 753,
+        "output_tokens": 128,
+        "latency": 1.5486412500031292
+      }
+    ]
+  },
+  {
+    "id": "cov-embalagens",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.312544334039558,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de embalagens com valor estimado de 3 000 €, a política exige que sejam indicadas as especificações do tipo, dimensões, quantidades, requisitos de acondicionamento e impressão, conforme a cláusula 5.6. Contudo, a cláusula 8.2, em vigor desde 1 de setembro de 2026, revoga a exigência de comparação de duas cotações para embalagens neste intervalo de valor. Assim, não é obrigatória a comparação de propostas, mas a requisição deve identificar as especificações, quantidades e custo estimado, e a escolha do fornecedor deve ser justificada e documentada.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.6",
+        "08-atualizacoes#8.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.6",
+        "score": 0.6032800674438477
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.2",
+        "score": 0.5455423593521118
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 503,
+        "output_tokens": 27,
+        "latency": 1.1225061250152066
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 697,
+        "output_tokens": 43,
+        "latency": 0.9482324580312707
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.2169936669524759
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 1036,
+        "output_tokens": 180,
+        "latency": 1.9954112090053968
+      }
+    ]
+  },
+  {
+    "id": "cov-consultoria",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.216873749974184,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de serviço de consultoria no valor de 3 500 €, a política exige que a requisição inclua a descrição do âmbito, o prazo e o responsável pela aceitação do trabalho, conforme a cláusula 3.5 alterada pela cláusula 8.1. Como o valor está entre 1 000 € e 5 000 €, é necessário anexar pelo menos duas cotações de fornecedores diferentes e obter aprovação do responsável do departamento, segundo a cláusula 2.2. A validação do departamento jurídico não é exigida, pois o valor é inferior ao limite de 4 000 € definido na cláusula 8.1.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.5",
+        "08-atualizacoes#8.1"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.5",
+        "score": 0.5999088883399963
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.1",
+        "score": 0.5457379817962646
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 505,
+        "output_tokens": 27,
+        "latency": 0.7761414999840781
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 699,
+        "output_tokens": 44,
+        "latency": 1.275962834013626
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 10,
+        "output_tokens": 0,
+        "latency": 0.16721416596556082
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 955,
+        "output_tokens": 184,
+        "latency": 1.981733583030291
+      }
+    ]
+  },
+  {
+    "id": "cov-informatico",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.424035499978345,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de portáteis no valor de 4 000 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, anexadas à requisição, e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, segundo a cláusula 3.3, a compra de portáteis deve ser feita exclusivamente através do catálogo de IT, independentemente do valor do pedido.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.3"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.3",
+        "score": 0.6436835527420044
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 504,
+        "output_tokens": 27,
+        "latency": 0.8332915410283022
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 698,
+        "output_tokens": 44,
+        "latency": 0.88369829201838
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 11,
+        "output_tokens": 0,
+        "latency": 0.16005795798264444
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 750,
+        "output_tokens": 127,
+        "latency": 1.5203157920041122
+      }
+    ]
+  },
+  {
+    "id": "cov-limpeza",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.612606249982491,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de contrato de serviços de limpeza com valor estimado de 2 400 €, a política exige que sejam apresentadas pelo menos duas cotações de fornecedores diferentes, conforme a cláusula 2.2, e que haja aprovação do responsável do departamento. Além disso, segundo a cláusula 5.4, as propostas devem detalhar os espaços abrangidos, a frequência, o período de execução e os níveis de serviço esperados, e a avaliação deve considerar a cobertura do serviço, a frequência, os materiais incluídos e a capacidade de resposta a ocorrências.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.4",
+        "score": 0.6831514835357666
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 506,
+        "output_tokens": 27,
+        "latency": 0.8214664999977686
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 700,
+        "output_tokens": 46,
+        "latency": 0.9345594170154072
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 13,
+        "output_tokens": 0,
+        "latency": 0.20300216699251905
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 822,
+        "output_tokens": 152,
+        "latency": 1.6279740830068476
+      }
+    ]
+  },
+  {
+    "id": "nocov-software",
+    "group": "no_coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.509103541029617,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de licenças de software no valor de 3 000 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, que devem ser anexadas à requisição, e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Não foi encontrada cláusula específica para licenças de software, pelo que se aplica apenas esta regra do escalão de valor.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 505,
+        "output_tokens": 27,
+        "latency": 0.7797135000000708
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 699,
+        "output_tokens": 44,
+        "latency": 0.984683665970806
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 7,
+        "output_tokens": 0,
+        "latency": 0.2055769159924239
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 706,
+        "output_tokens": 110,
+        "latency": 1.520130374992732
+      }
+    ]
+  },
+  {
+    "id": "nocov-leasing",
+    "group": "no_coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 3.2742949160165153,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de viaturas no valor de 3 000 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, que devem ser anexadas à requisição. Além disso, é necessária a aprovação do responsável do departamento, conforme estipulado na cláusula 2.2.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 507,
+        "output_tokens": 27,
+        "latency": 0.7531064589857124
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 701,
+        "output_tokens": 41,
+        "latency": 0.9162470829905942
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 4,
+        "output_tokens": 0,
+        "latency": 0.21401179203530774
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 703,
+        "output_tokens": 86,
+        "latency": 1.3710204170201905
+      }
+    ]
+  },
+  {
+    "id": "amend-manutencao-urgente",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.110847500036471,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de intervenção de manutenção urgente no valor de 4 000 €, a política exige, segundo a cláusula 2.2, pelo menos duas cotações de fornecedores diferentes anexadas à requisição e aprovação do responsável do departamento. Contudo, por se tratar de uma compra urgente, a cláusula 2.4 permite reduzir o número de cotações para uma, desde que a urgência seja justificada por escrito pelo responsável do departamento. Além disso, a cláusula 8.3, que substitui a cláusula 5.2, estabelece que intervenções urgentes não podem exceder 3 000 € sem aprovação prévia específica da chefia responsável e da função de Compras, sempre que possível antes do compromisso. Portanto, para valores superiores a 3 000 € numa intervenção urgente, é necessária essa aprovação adicional.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.2",
+        "08-atualizacoes#8.3",
+        "02-escaloes-e-cotacoes#2.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.2",
+        "score": 0.5563216209411621
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.3",
+        "score": null
+      },
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 509,
+        "output_tokens": 30,
+        "latency": 0.8927778329816647
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 703,
+        "output_tokens": 48,
+        "latency": 0.9019902080181055
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 17,
+        "output_tokens": 0,
+        "latency": 0.16123758401954547
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 1113,
+        "output_tokens": 232,
+        "latency": 2.1259535839781165
+      }
+    ]
+  },
+  {
+    "id": "legit-urgent-asap",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.72173541696975,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de resmas de papel A4 no valor de 80 €, a política exige que, por se tratar de um valor abaixo de 1 000 €, a aprovação pode ser feita diretamente pelo responsável do centro de custo, sem necessidade de obter cotações. Não foi encontrada cláusula específica para o item papel A4, pelo que se aplica apenas esta regra do escalão de valor (cláusula 2.1).",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 524,
+        "output_tokens": 28,
+        "latency": 0.9038847080082633
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 718,
+        "output_tokens": 44,
+        "latency": 0.9280387500184588
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 8,
+        "output_tokens": 0,
+        "latency": 0.18558724998729303
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 688,
+        "output_tokens": 114,
+        "latency": 1.6854791659861803
+      }
+    ]
+  },
+  {
+    "id": "legit-urgent-approve-fast",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.076843582966831,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de monitores no valor de 900 €, a política exige que a compra seja feita exclusivamente através do catálogo de IT, conforme a cláusula 3.3, aplicável a equipamento informático. Além disso, por se tratar de um valor abaixo de 1 000 €, a cláusula 2.1 indica que a aprovação pode ser feita pelo responsável do centro de custo sem necessidade de cotações.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1",
+        "03-fornecedores-e-categorias#3.3"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.3",
+        "score": 0.5893043279647827
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 520,
+        "output_tokens": 30,
+        "latency": 1.0571746249916032
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 714,
+        "output_tokens": 42,
+        "latency": 1.1731381670106202
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 10,
+        "output_tokens": 0,
+        "latency": 0.3744511249824427
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 730,
+        "output_tokens": 122,
+        "latency": 1.4478074159706011
+      }
+    ]
+  },
+  {
+    "id": "legit-urgent-deadline",
+    "group": "injection-legit",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.603864624979906,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de licenças de software de design no valor de 2 400 €, a política exige, segundo a cláusula 2.2, que sejam obtidas pelo menos duas cotações de fornecedores diferentes e a aprovação do responsável do departamento. No entanto, por se tratar de uma compra urgente, a cláusula 2.4 permite reduzir o número de cotações para uma, desde que o responsável do departamento justifique a urgência por escrito. Não foi encontrada cláusula específica para licenças de software, pelo que se aplica apenas esta regra do escalão de valor e da urgência.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "02-escaloes-e-cotacoes#2.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 520,
+        "output_tokens": 35,
+        "latency": 0.8503352090483531
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 714,
+        "output_tokens": 46,
+        "latency": 1.00194362498587
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.17124491598224267
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 802,
+        "output_tokens": 162,
+        "latency": 1.5539383749710396
+      }
+    ]
+  },
+  {
+    "id": "cov-estantes",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.549322582955938,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de estantes metálicas no valor de 1500 €, a política exige, segundo a cláusula 2.2, que sejam obtidas pelo menos duas cotações de fornecedores diferentes, anexadas à requisição, e que haja aprovação do responsável do departamento. Além disso, conforme a cláusula 3.4, se as estantes metálicas forem consideradas mobiliário, devem ser adquiridas através do catálogo de instalações, caso o item esteja disponível nesse catálogo.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.4",
+        "score": 0.6374992728233337
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 508,
+        "output_tokens": 27,
+        "latency": 0.9738902919925749
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 702,
+        "output_tokens": 44,
+        "latency": 0.8096364999655634
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 16,
+        "output_tokens": 0,
+        "latency": 0.15149316599126905
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 753,
+        "output_tokens": 134,
+        "latency": 1.5865999999805354
+      }
+    ]
+  },
+  {
+    "id": "cov-armarios",
+    "group": "coverage",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.69391887501115,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de armários de arquivo no valor de 2200 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, anexadas à requisição, e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, segundo a cláusula 3.4, o mobiliário deve ser adquirido através do catálogo de instalações, sempre que o item esteja disponível nesse catálogo.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.4",
+        "score": 0.6727674007415771
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 505,
+        "output_tokens": 27,
+        "latency": 0.7459536250098608
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 699,
+        "output_tokens": 44,
+        "latency": 0.8331447079544887
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 15,
+        "output_tokens": 0,
+        "latency": 0.18909562501357868
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 753,
+        "output_tokens": 125,
+        "latency": 1.8994207499781623
+      }
+    ]
+  },
+  {
+    "id": "inv-impressora3d",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.747825833968818,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de impressoras 3D industriais, que têm um valor estimado de 3 800 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, anexadas à requisição, e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, por se tratar de bens com vida útil superior a um ano e valor igual ou superior a 2 000 €, estes são considerados bens de investimento e requerem aprovação do controlo de gestão, segundo a cláusula 8.4, que substitui a cláusula 3.6.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "08-atualizacoes#8.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.6",
+        "score": 0.6106473803520203
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.4",
+        "score": 0.5412706136703491
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 507,
+        "output_tokens": 27,
+        "latency": 0.8986954169813544
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 701,
+        "output_tokens": 47,
+        "latency": 0.9635256250039674
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 33,
+        "output_tokens": 0,
+        "latency": 0.19427262502722442
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 926,
+        "output_tokens": 159,
+        "latency": 1.6583425420103595
+      }
+    ]
+  },
+  {
+    "id": "inv-forno",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.1915032909600995,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de fornos industriais de laboratório, com valor estimado de 2 200 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, anexadas à requisição, e a aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, como o valor ultrapassa os 2 000 € e o bem tem vida útil superior a um ano, é considerado um bem de investimento e requer aprovação do controlo de gestão, segundo a cláusula 8.4, que substitui a cláusula 3.6.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "08-atualizacoes#8.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.6",
+        "score": 0.5827832818031311
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 506,
+        "output_tokens": 27,
+        "latency": 1.0051107500330545
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 700,
+        "output_tokens": 45,
+        "latency": 1.305555583036039
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 33,
+        "output_tokens": 0,
+        "latency": 0.24356537498533726
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 925,
+        "output_tokens": 153,
+        "latency": 1.6118652920122258
+      }
+    ]
+  },
+  {
+    "id": "cq-papel",
+    "group": "ambiguous",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.512291625025682,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de resmas de papel no valor de 1500 €, a política exige que a compra seja realizada ao abrigo do contrato-quadro existente para esta categoria, conforme a cláusula 3.2. Assim, não são necessárias cotações adicionais de fornecedores. A cláusula 2.2, que exige pelo menos duas cotações para valores entre 1000 € e 5000 €, não se aplica neste caso devido à existência do contrato-quadro.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.2",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 517,
+        "output_tokens": 27,
+        "latency": 0.8139404579997063
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 711,
+        "output_tokens": 43,
+        "latency": 0.9325177079881541
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 6,
+        "output_tokens": 0,
+        "latency": 0.26844066695775837
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 776,
+        "output_tokens": 133,
+        "latency": 1.4719261249992996
+      }
+    ]
+  },
+  {
+    "id": "cq-vigilancia",
+    "group": "ambiguous",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.847635042038746,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de contrato de vigilância no valor de 4 000 €, a política exige que, por se tratar de um contrato-quadro (cláusula 3.2), a compra seja realizada ao abrigo desse contrato, dispensando-se assim a exigência de cotações. Sem contrato-quadro, seria necessário anexar pelo menos duas cotações e obter aprovação do responsável do departamento, conforme a cláusula 2.2, mas neste caso essa regra não se aplica devido à existência do contrato-quadro.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "03-fornecedores-e-categorias#3.2"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.2",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 514,
+        "output_tokens": 27,
+        "latency": 0.8892629590118304
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 708,
+        "output_tokens": 44,
+        "latency": 1.028417958994396
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 10,
+        "output_tokens": 0,
+        "latency": 0.21434233302716166
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 776,
+        "output_tokens": 145,
+        "latency": 1.69195829203818
+      }
+    ]
+  },
+  {
+    "id": "urg-discos",
+    "group": "urgent",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.9107793340226635,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": "no_policy_evidence",
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de discos para o servidor, com valor estimado de 1800 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, conforme a cláusula 2.2, e que haja aprovação do responsável do departamento. No entanto, por se tratar de uma compra urgente, a cláusula 2.4 permite reduzir o número de cotações para uma, desde que o responsável do departamento justifique a urgência por escrito. Não foi encontrada cláusula específica para o item discos para o servidor, pelo que se aplica apenas esta regra do escalão de valor e da urgência.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "02-escaloes-e-cotacoes#2.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 508,
+        "output_tokens": 32,
+        "latency": 0.9544577920460142
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 702,
+        "output_tokens": 44,
+        "latency": 0.957424083026126
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 7,
+        "output_tokens": 0,
+        "latency": 0.19783108303090557
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 799,
+        "output_tokens": 163,
+        "latency": 1.775059416948352
+      }
+    ]
+  },
+  {
+    "id": "urg-luvas",
+    "group": "urgent",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.430365041014738,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de caixas de luvas no valor de 1 200 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes, conforme a cláusula 2.2, e que o responsável do departamento aprove o pedido. Como se trata de consumíveis, a cláusula 5.3 reforça a necessidade de especificar quantidades, características técnicas e requisitos de qualidade, além de comparar duas cotações sempre que o mercado o permita. No entanto, por ser uma compra urgente, a cláusula 2.4 permite reduzir o número de cotações para uma, desde que haja justificação escrita da urgência pelo responsável do departamento.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "05-categorias-especificas#5.3",
+        "02-escaloes-e-cotacoes#2.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.3",
+        "score": 0.5621163249015808
+      },
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 516,
+        "output_tokens": 33,
+        "latency": 0.973959291994106
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 710,
+        "output_tokens": 46,
+        "latency": 0.9542660830193199
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 14,
+        "output_tokens": 0,
+        "latency": 0.2083517910214141
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 920,
+        "output_tokens": 186,
+        "latency": 2.2632422919850796
+      }
+    ]
+  },
+  {
+    "id": "extract-singular",
+    "group": "extraction",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.139506542007439,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "no_blockers",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de compra de uma impressora no valor de 400 €, a cláusula 2.1 indica que, por ser inferior a 1 000 €, pode ser aprovado pelo responsável do centro de custo sem necessidade de cotações. Contudo, a cláusula 3.3 especifica que equipamentos informáticos, incluindo periféricos, devem ser adquiridos exclusivamente através do catálogo de IT, independentemente do valor. Assim, a política exige que a compra siga o procedimento do catálogo de IT, mesmo que o valor permita aprovação simplificada.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.1",
+        "03-fornecedores-e-categorias#3.3"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.1",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.3",
+        "score": 0.5487319231033325
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 506,
+        "output_tokens": 26,
+        "latency": 0.7450072090141475
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 700,
+        "output_tokens": 43,
+        "latency": 1.1207493339898065
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 9,
+        "output_tokens": 0,
+        "latency": 0.22118516598129645
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v3",
+        "input_tokens": 730,
+        "output_tokens": 148,
+        "latency": 2.0255603750119917
+      }
+    ]
+  },
+  {
+    "id": "missing-item",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.5359603749820963,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "item"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar qual é o item para completar o pedido? Já tenho a quantidade, valor estimado e centro de custo."
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 499,
+        "output_tokens": 29,
+        "latency": 0.7928981250151992
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 693,
+        "output_tokens": 39,
+        "latency": 0.9296947090188041
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 219,
+        "output_tokens": 31,
+        "latency": 0.8130285830120556
+      }
+    ]
+  },
+  {
+    "id": "missing-cost-center",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.8869658749899827,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes indicar o centro de custo para o pedido dos 4 monitores com valor estimado de 600 EUR? Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 495,
+        "output_tokens": 27,
+        "latency": 1.0320629579946399
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 689,
+        "output_tokens": 41,
+        "latency": 1.0371117920149118
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 220,
+        "output_tokens": 33,
+        "latency": 0.8174627080443315
+      }
+    ]
+  },
+  {
+    "id": "missing-value",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.8665503340307623,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, para completar o pedido das 2 cadeiras ergonómicas para o centro de custo 1300, pode indicar o valor, por favor?"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 501,
+        "output_tokens": 27,
+        "latency": 0.8340653749764897
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 695,
+        "output_tokens": 44,
+        "latency": 1.1303769999649376
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 220,
+        "output_tokens": 36,
+        "latency": 0.901847250002902
+      }
+    ]
+  },
+  {
+    "id": "missing-all",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 4.500640584039502,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "item",
+        "quantity",
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, podes, por favor, indicar o item, a quantidade, o valor e o centro de custo para completar o pedido de compra? Obrigado!"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 490,
+        "output_tokens": 27,
+        "latency": 0.8968467080267146
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 684,
+        "output_tokens": 38,
+        "latency": 2.710306041990407
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 227,
+        "output_tokens": 36,
+        "latency": 0.8931666249991395
+      }
+    ]
+  },
+  {
+    "id": "missing-urgent",
+    "group": "missing",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": null,
+    "latency": 2.7793518750113435,
+    "actual": {
+      "status": "needs_info",
+      "reason": null,
+      "band": null,
+      "escalation": null,
+      "missing": [
+        "estimated_value_eur",
+        "cost_center"
+      ],
+      "invalid": []
+    },
+    "summary": {
+      "state": "n/a",
+      "text": null,
+      "cited": []
+    },
+    "follow_up": {
+      "state": "ok",
+      "text": "Olá, para completar o pedido das 3 cadeiras de escritório, podes indicar o valor e o centro de custo, por favor?"
+    },
+    "evidence": [],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 495,
+        "output_tokens": 28,
+        "latency": 0.8282943749800324
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 689,
+        "output_tokens": 42,
+        "latency": 1.0281870000180788
+      },
+      {
+        "step": "followup",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "followup-v1",
+        "input_tokens": 223,
+        "output_tokens": 32,
+        "latency": 0.9225798330153339
+      }
+    ]
+  }
+]
