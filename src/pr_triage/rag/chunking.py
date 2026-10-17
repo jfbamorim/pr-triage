@@ -6,6 +6,7 @@ from pydantic import BaseModel
 POLICIES_DIR = Path("data/policies")
 DATE_PREFIX = "Data de entrada em vigor:"
 CLAUSE_PATTERN = re.compile(r"^## (\d+\.\d+) (.+)$")
+AMENDS_PATTERN = re.compile(r"cláusula (\d+\.\d+) do documento `([^`]+)\.md`")
 
 
 class Chunk(BaseModel):
@@ -15,6 +16,7 @@ class Chunk(BaseModel):
     clause: str
     title: str
     effective_date: str | None
+    amends: str | None
     text: str
 
 
@@ -38,6 +40,10 @@ def chunk_document(path: Path) -> list[Chunk]:
     for clause, title, body_lines in clauses:
         body = "\n".join(body_lines).strip()
         header = f"Documento: {document} | Cláusula {clause} | {title}"
+        amends_match = AMENDS_PATTERN.search(body)
+        amends = (
+            f"{amends_match.group(2)}#{amends_match.group(1)}" if amends_match else None
+        )
         chunks.append(
             Chunk(
                 chunk_id=f"{path.stem}#{clause}",
@@ -46,6 +52,7 @@ def chunk_document(path: Path) -> list[Chunk]:
                 clause=clause,
                 title=title,
                 effective_date=effective_date,
+                amends=amends,
                 text=f"{header}\n{body}",
             )
         )

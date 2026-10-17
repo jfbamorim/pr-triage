@@ -25,6 +25,7 @@ class Evidence(BaseModel):
     effective_date: str | None
     text: str
     score: float | None = None
+    amends: str | None = None
 
 
 class WorkflowResult(BaseModel):

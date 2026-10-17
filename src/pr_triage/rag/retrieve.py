@@ -16,6 +16,7 @@ def _to_evidence(
         effective_date=metadata["effective_date"] or None,
         text=text,
         score=score,
+        amends=metadata.get("amends") or None,
     )
 
 
@@ -39,3 +40,13 @@ def fetch_by_id(chunk_id: str) -> Evidence:
     return _to_evidence(
         result["ids"][0], result["documents"][0], result["metadatas"][0]
     )
+
+
+def fetch_amending(chunk_id: str) -> list[Evidence]:
+    result = get_collection().get(where={"amends": chunk_id})
+    return [
+        _to_evidence(found_id, text, metadata)
+        for found_id, text, metadata in zip(
+            result["ids"], result["documents"], result["metadatas"]
+        )
+    ]

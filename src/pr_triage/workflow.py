@@ -12,7 +12,7 @@ from pr_triage.domain.status import EscalationReason, Reason, Status, determine_
 from pr_triage.domain.validation import validate_request
 from pr_triage.llm.extract_purchase_request import extract_request
 from pr_triage.llm.screen_input import screen_input
-from pr_triage.rag.context import TIER_CLAUSES, select_context
+from pr_triage.rag.context import TIER_CLAUSES, add_linked_clauses, select_context
 from pr_triage.rag.query import build_query
 from pr_triage.rag.retrieve import fetch_by_id, retrieve
 
@@ -36,7 +36,7 @@ def _gather_evidence(
     pr: PurchaseRequest, band: Band, client: OpenAI
 ) -> tuple[list[Evidence], EscalationReason | None]:
     try:
-        selected = select_context(retrieve(build_query(pr), client))
+        selected = add_linked_clauses(select_context(retrieve(build_query(pr), client)))
         tier = fetch_by_id(TIER_CLAUSES[band])
     except Exception:
         return [], EscalationReason.RETRIEVAL_ERROR

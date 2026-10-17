@@ -43,6 +43,7 @@ def build_index(client: OpenAI) -> int:
                 "clause": c.clause,
                 "title": c.title,
                 "effective_date": c.effective_date or "",
+                "amends": c.amends or "",
             }
             for c in chunks
         ],
