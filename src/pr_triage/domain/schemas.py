@@ -56,4 +56,5 @@ class WorkflowResult(BaseModel):
     escalation: EscalationReason | None = None
     evidence: list[Evidence] = []
     summary: ResultSummary | None = None
+    follow_up: str | None = None
     calls: list[LLMCall] = []

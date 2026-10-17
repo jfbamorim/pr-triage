@@ -16,7 +16,6 @@ class EscalationReason(str, Enum):
 class Reason(str, Enum):
     INVALID_DATA = "invalid_data"
     SUSPICIOUS_ACTIVITY = "suspicious_activity"
-    
 
 
 def determine_status(missing: list[str], invalid: list[str]) -> Status:
@@ -25,4 +24,3 @@ def determine_status(missing: list[str], invalid: list[str]) -> Status:
     if missing:
         return Status.NEEDS_INFO
     return Status.VALID
-

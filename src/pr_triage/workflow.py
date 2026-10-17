@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from pr_triage.domain.band import Band, determine_band
 from pr_triage.domain.category import Category
 from pr_triage.domain.citations import validate_citations
+from pr_triage.domain.followup import fallback_followup, validate_followup
 from pr_triage.domain.labels import (
     BAND_LABELS,
     ESCALATION_LABELS,
@@ -27,6 +28,7 @@ from pr_triage.domain.validation import validate_request
 from pr_triage.llm.extract_purchase_request import extract_request
 from pr_triage.llm.screen_input import screen_input
 from pr_triage.llm.summarize_result import summarize_result
+from pr_triage.llm.write_followup import write_followup
 from pr_triage.rag.context import (
     TIER_CLAUSES,
     add_linked_clauses,
@@ -87,6 +89,18 @@ def _summarize(
     if not validate_citations(summary.cited_chunk_ids, result.evidence):
         return None
     return summary
+
+
+def _follow_up(
+    pr: PurchaseRequest, missing: list[str], client: OpenAI, calls: list[LLMCall]
+) -> str:
+    try:
+        question = write_followup(pr, missing, client, calls)
+    except Exception:
+        return fallback_followup(missing)
+    if not validate_followup(question, missing):
+        return fallback_followup(missing)
+    return question
 
 
 def _describe_request(pr: PurchaseRequest) -> str:
@@ -160,7 +174,14 @@ def iter_workflow(
             state="failed",
             detail="Falta: " + ", ".join(FIELD_LABELS[f] for f in missing),
         )
-        yield WorkflowResult(status=status, request=pr, missing=missing, calls=calls)
+        follow_up = _follow_up(pr, missing, client, calls)
+        yield WorkflowResult(
+            status=status,
+            request=pr,
+            missing=missing,
+            follow_up=follow_up,
+            calls=calls,
+        )
         return
     yield StepEvent(step=Step.VALIDATION, state="done", detail="Dados completos")
 
