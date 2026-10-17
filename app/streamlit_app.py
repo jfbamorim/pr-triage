@@ -134,19 +134,14 @@ def render_result(result: WorkflowResult) -> None:
         return
 
     if result.status == Status.NEEDS_INFO:
-        text = "Faltam dados: " + ", ".join(FIELD_LABELS[f] for f in result.missing)
-        st.markdown(banner("amber", "⚠", text), unsafe_allow_html=True)
-        if result.follow_up:
-            with st.container(border=True):
-                st.markdown(
-                    '<div class="card-title">Pergunta</div>', unsafe_allow_html=True
-                )
-                st.write(result.follow_up)
-        else:
-            st.markdown(
-                '<div class="muted">Responde na caixa de texto com a informação em falta.</div>',
-                unsafe_allow_html=True,
-            )
+        missing = ", ".join(FIELD_LABELS[f] for f in result.missing)
+        text = result.follow_up or f"Faltam dados: {missing}"
+        st.markdown(banner("amber", "💬", text), unsafe_allow_html=True)
+        st.markdown(
+            f'<div class="muted">Em falta: {html.escape(missing)}. '
+            "Responde na caixa à esquerda.</div>",
+            unsafe_allow_html=True,
+        )
         return
 
     if result.escalation:
@@ -194,6 +189,13 @@ st.session_state.setdefault("request_id", None)
 st.session_state.setdefault("result", None)
 st.session_state.setdefault("steps", None)
 st.session_state.setdefault("text", "")
+if st.session_state.pop("clear_text", False):
+    st.session_state.text = ""
+
+awaiting = (
+    st.session_state.result is not None
+    and st.session_state.result.status == Status.NEEDS_INFO
+)
 
 badge = (
     f'<span class="badge">Pedido #{st.session_state.request_id}</span>'
@@ -211,11 +213,22 @@ left, right = st.columns([2, 3], gap="large")
 
 with left:
     with st.container(border=True):
-        st.markdown('<div class="card-title">Novo pedido</div>', unsafe_allow_html=True)
-        st.text_area("Descreve o pedido de compra", key="text", height=160)
+        title = (
+            f"Responder ao pedido #{st.session_state.request_id}"
+            if awaiting
+            else "Novo pedido"
+        )
+        st.markdown(f'<div class="card-title">{title}</div>', unsafe_allow_html=True)
+        st.text_area(
+            "Responde à pergunta" if awaiting else "Descreve o pedido de compra",
+            key="text",
+            height=160,
+        )
         col_submit, col_reset = st.columns(2)
         submit = col_submit.button(
-            "Processar pedido", type="primary", use_container_width=True
+            "Enviar resposta" if awaiting else "Processar pedido",
+            type="primary",
+            use_container_width=True,
         )
         col_reset.button("Novo pedido", on_click=reset, use_container_width=True)
         st.markdown('<div class="muted">EXEMPLOS</div>', unsafe_allow_html=True)
@@ -253,6 +266,8 @@ if submit and st.session_state.text.strip():
     st.session_state.request_id = outcome.request_id
     st.session_state.result = outcome.result
     st.session_state.steps = states
+    if outcome.result.status == Status.NEEDS_INFO:
+        st.session_state.clear_text = True
     st.rerun()
 
 if st.session_state.result is not None:
