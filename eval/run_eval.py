@@ -181,7 +181,7 @@ def print_summary(results: list[dict]) -> None:
     with_summary = [r for r in results if r["summary"]["state"] != "n/a"]
     ok = sum(r["summary"]["state"] == "ok" for r in with_summary)
     if with_summary:
-        print(f"Resumos válidos: {ok}/{len(with_summary)}")
+        print(f"Resumos com citações válidas: {ok}/{len(with_summary)}")
 
     with_follow_up = [r for r in results if r["follow_up"]["state"] != "n/a"]
     follow_up_ok = sum(r["follow_up"]["state"] == "ok" for r in with_follow_up)

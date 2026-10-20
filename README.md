@@ -1,156 +1,111 @@
-# Triagem de requisições de compra
+# PR Triage
 
-Assistente de triagem para pedidos de compra (Purchasing / P2P). O utilizador descreve o pedido em texto livre; a aplicação extrai os dados, valida-os, determina o escalão de valor e consulta a política de compras. Devolve uma de três saídas: sem bloqueios, política a verificar, ou ação manual.
+Triagem de requisições de compra (Purchase Requisitions) para Purchasing / P2P. O utilizador escreve o pedido em texto livre, e a aplicação extrai os dados, valida, consulta a política de compras e devolve um estado com as cláusulas que o justificam.
 
-O LLM nunca aprova nada: só lê, extrai e explica. As decisões são código Python determinístico, e a aprovação continua a ser humana.
+**Princípio:** o LLM lê, extrai e explica. O Python decide. O modelo nunca aprova nada.
 
-Projeto final do curso "Generative AI: Fundamentos e Aplicação" (EDIT).
+Projeto final do curso *Generative AI: Fundamentos e Aplicação* (EDIT).
 
-## Para quem avalia
+## Como correr
 
-**Executar, depois de clonar ou fazer pull:**
-
-```bash
+```
 uv sync
 cp .env.example .env        # preencher OPENAI_API_KEY
 uv run python scripts/run.py
 ```
 
-O `run.py` constrói o índice da política na primeira execução (poucos segundos, uma chamada de embeddings) e depois abre a interface em `http://localhost:8501`. Nas execuções seguintes reutiliza o índice; `--rebuild` obriga a reconstruí-lo. A interface tem 3 exemplos de pedidos para experimentar. É preciso uma chave da OpenAI, porque todos os passos com modelo e as embeddings usam a API (cerca de 0.001 $ por pedido).
+O `run.py` constrói o índice da política na primeira execução e abre a interface em Streamlit. Para testes: `uv run pytest`. Para a avaliação: `uv run python eval/run_eval.py --split dev`.
 
-**Sem chave, dá para ver:** `uv run pytest -q` (30 testes, sem API) e os resultados guardados em `eval/results/`.
+## O problema
 
-**Onde investi mais tempo: RAG e avaliação.**
+Quem faz compras recebe pedidos incompletos, mal escritos ou fora da política. A aplicação responde a três perguntas:
 
-- **RAG.** O corpus tem 8 documentos e 47 cláusulas, com emendas que alteram cláusulas anteriores e lacunas intencionais para testar a abstenção. A recuperação foi o que mais iterei: query com a categoria do item, cláusulas obrigatórias juntadas por id (escalão, urgência, contrato-quadro), ligação das emendas às cláusulas que alteram e um limiar de similaridade que se manteve fixo em vez de ser baixado para fazer casos passar. Isto levou o `dev` de 23/31 para 31/31 (ver "Avaliação").
-- **Avaliação.** 50 casos etiquetados, separados em `dev` (afinar) e `holdout` (correr uma vez, no fim, sem afinar). Os valores esperados nunca foram alterados para ajustar aos resultados. Cada execução regista tokens, custo e latência por passo, e a versão de cada prompt, por isso cada ficheiro em `eval/results/` é reproduzível e comparável. Foi a avaliação que mostrou os problemas reais (por exemplo, categorias mal atribuídas que arrastavam cláusulas erradas) e que obrigou a corrigir a extração em vários passos, de `extraction-v3` a `v5`.
-- **O resto** (interface, persistência) é deliberadamente simples.
+- O pedido está completo e é legítimo? Se faltam dados, pergunta; se é uma tentativa de manipulação, rejeita.
+- Em que escalão de valor cai? Menos de 1 000 €, de 1 000 a 5 000 €, ou mais de 5 000 € (ação humana).
+- Que cláusulas da política se aplicam, e o que dizem?
 
-## Problema e utilizador
-
-Pedidos de compra chegam incompletos ou mal descritos, e quem os trata tem de conferir à mão regras de cotações e escalões espalhadas por vários documentos.
-
-- **Utilizador:** quem faz o pedido, em texto livre.
-- **Destinatário:** a equipa de Compras, que recebe pedidos triados, com a evidência da política à vista e um resumo que cita as cláusulas.
-
-## Princípios
-
-1. **O LLM propõe, o Python decide.** Estado, escalão e escalação são código determinístico.
-2. **Falha segura.** Em caso de dúvida ou erro, o pedido vai para uma pessoa; nunca se assume que "não há regra".
-3. **Rastreável.** Cada resposta mostra a evidência da política, as cláusulas citadas, a versão de cada prompt e os tokens gastos.
-
-## Fluxo
+## O fluxo
 
 ![Fluxo](docs/fluxo.png)
 
-1. **Verificar o texto** (LLM): deteta tentativas de manipular o sistema. Texto suspeito, ou falha neste passo, rejeita o pedido.
-2. **Extrair os dados** (LLM): item, quantidade, valor estimado, centro de custo, categoria, urgência e menção a contrato-quadro, com saída validada por schema (Pydantic). O resultado é fundido com o pedido anterior, se existir.
-3. **Validar** (Python): dados em falta dão `NEEDS_INFO`; dados inválidos dão `REJECTED`.
-4. **Determinar o escalão** (Python): abaixo de 1 000 €, de 1 000 a 5 000 € (inclusive) ou acima de 5 000 €.
-5. **Consultar a política** (RAG): pesquisa por similaridade sobre as cláusulas, mais as cláusulas que o pedido obriga a incluir.
-6. **Decisão** (Python): sem bloqueios, política a verificar, ou ação manual.
-7. **Resumo com citações** (LLM + Python): texto em português sobre o que a política exige, com os `chunk_id` das cláusulas em que se baseia. Se citar uma cláusula que não foi recuperada, ou não citar nenhuma, o resumo é descartado e a decisão mantém-se.
+| # | Passo | Quem faz |
+|---|-------|----------|
+| 1 | Verificar o texto (prompt injection) | LLM |
+| 2 | Extrair os dados e juntar com o pedido anterior | LLM |
+| 3 | Validar campos em falta ou inválidos | Python |
+| 4 | Determinar o escalão de valor | Python |
+| 5 | Consultar a política (RAG) | Embeddings + Chroma + Python |
+| 6 | Decidir o estado e a escalação | Python |
+| 7 | Resumo com citações | LLM, validado em Python |
 
-## Comportamento quando falta informação ou há risco
+Quando falham dados, o LLM escreve a pergunta de seguimento e o Python confirma que ela menciona cada campo em falta; se não, usa uma pergunta de recurso. Em qualquer falha (resumo inválido, política sem cláusulas relevantes, erro na consulta) o sistema falha para o lado seguro: passa para ação manual, nunca aprova.
+
+## O que aprendi nas aulas e onde está no projeto
+
+| Sessão | Tema | O que fiz | Onde |
+|---|---|---|---|
+| 1 | LLMs e APIs | Responses API com `gpt-4.1-mini`; chave e modelo no `.env`; temperature 0 nas decisões; tokens, latência e custo por chamada | `src/pr_triage/llm/`, `.env.example` |
+| 2 | Prompting e structured outputs | Prompts com papel, tarefa, restrições e formato; saídas validadas com Pydantic; deteção de prompt injection; prompts com versão (`screening-v3`, `extraction-v5`, `summary-v4`, `followup-v1`) | `llm/`, `domain/schemas.py` |
+| 3 | Embeddings e pesquisa semântica | `text-embedding-3-small`, Chroma, cosine similarity, `MIN_SCORE` calibrado com casos (0,52) para dizer "não há evidência" | `src/pr_triage/rag/` |
+| 4 | RAG | Um chunk por cláusula, com id estável; contexto selecionado por escalão, categoria e urgência; citações obrigatórias, com ids validados | `rag/`, `domain/citations.py` |
+| 5 | Medir, comparar e decidir | 50 casos etiquetados, divididos em `dev` e `holdout`; source recall; comparação de versões de prompt nos mesmos casos; tokens e latência por passo | `data/eval/cases.jsonl`, `eval/run_eval.py` |
+| 6 | Conversational RAG e tool calling | A pergunta de seguimento e o pedido anterior fundido com a resposta do utilizador. Não usei tool calling nem agent loop: o fluxo tem passos fixos, e o Python escolhe o caminho | `workflow.py`, `llm/write_followup.py` |
+| 7 | Agentes e FastAPI | Controlo na aplicação, não no modelo: limites e regras em Python, falhas tratadas como dados, trace por chamada, histórico em SQLite. Não usei FastAPI: o `service.py` faz de camada de serviço e a interface é Streamlit | `service.py`, `storage/db.py` |
+
+Requisitos mínimos do projeto: mais de dois passos com LLM (3), saída estruturada validada, comportamento definido quando falta informação, e um conjunto de casos de teste.
+
+## Aprendizagem contínua: medir, mudar, voltar a medir
+
+A sessão 5 diz que uma alteração só conta depois da comparação. Foi assim que o projeto evoluiu: cada alteração foi medida nos mesmos casos.
+
+- **Primeira avaliação (`dev`): 23/31.** Falhas diagnosticadas por passo (extração, retrieval ou resumo) antes de mexer em qualquer coisa.
+- **Depois de várias iterações nos prompts e na recuperação: 31/31.** Uma alteração de cada vez, mantendo o resto igual.
+- **Cinco casos novos de dados em falta** (pergunta de seguimento): `dev` com **36/36**, recall 1,00, perguntas do modelo válidas 7/7.
+- **Estabilidade:** 3 execuções seguidas do `dev`, todas 36/36, com os mesmos tokens de entrada. As decisões são estáveis; só a redação do resumo varia.
+- **Prompt do resumo `v3` → `v4`:** o caso `amend-manutencao-urgente` errava a comparação de limites em 2 de 3 execuções com a `v3`, e em 0 de 5 com a `v4`.
+- **`holdout`: 14/14.** Aviso honesto: este conjunto já tinha sido visto uma vez, quando tinha dado 10/14 numa versão inicial. Por isso mostra que os prompts congelados generalizam para estes 14 casos, mas não é uma validação cega.
+
+Custo: cerca de 0,001 $ por caso, 2 a 3 chamadas ao LLM por pedido (3 se faltarem dados). Estimativa feita com os preços configurados em `PRICES_PER_MILLION`, em `eval/run_eval.py`.
+
+## Casos de teste
+
+- **Avaliação (50 casos):** pedidos completos, dados em falta, dados inválidos, prompt injection (e pedidos legítimos que parecem injection), cláusulas com e sem cobertura, emendas à política e casos ambíguos. 36 em `dev` e 14 em `holdout`.
+- **Testes (47):** validação, escalões (999,99 / 1000 / 5000 / 5000,01), citações, fusão de pedidos, pergunta de seguimento, base de dados e o fluxo completo com o LLM substituído por respostas fixas.
+
+## Comportamento seguro
 
 | Situação | Resultado |
 |---|---|
-| Faltam dados | `NEEDS_INFO`. O LLM escreve uma pergunta que pede só o que falta; o Python valida que cada campo em falta é mencionado e, se não for, usa uma frase fixa. O utilizador responde na mesma caixa e a resposta é fundida com o pedido anterior (o dado novo prevalece; categoria e flags persistem). Só pedidos em `NEEDS_INFO` aceitam respostas de seguimento. |
-| Dados inválidos | `REJECTED` (`INVALID_DATA`) |
-| Texto suspeito, ou falha do screening | `REJECTED` (`SUSPICIOUS_ACTIVITY`) |
-| Valor acima de 5 000 € | Ação manual (`OVER_THRESHOLD`) |
-| Nenhuma cláusula relevante na política | Ação manual (`NO_POLICY_EVIDENCE`) |
-| Erro na consulta da política | Ação manual (`RETRIEVAL_ERROR`) |
-| Resumo com citações inválidas | Sem resumo; a decisão não muda |
+| Tentativa de manipulação | Rejeitado, nada é gravado |
+| Faltam dados | `needs_info`, com pergunta |
+| Dados inválidos (quantidade ou valor ≤ 0) | Rejeitado |
+| Mais de 5 000 € | Ação manual |
+| Política sem cláusula relevante, ou erro na consulta | Ação manual |
+| Resumo com citação inventada | Sem resumo; a decisão mantém-se |
 
-## Política de compras (RAG)
+## Limitações conhecidas
 
-`data/policies/` contém um corpus fictício de 8 documentos e 47 cláusulas, com emendas (`08`) que alteram cláusulas anteriores e lacunas intencionais (por exemplo, licenças de software ou leasing), para testar a abstenção.
-
-- **Chunking:** uma cláusula por chunk, com o prefixo `Documento | Cláusula | Título` no texto e metadados (`source`, `clause`, `title`, `effective_date`, `amends`, `chunk_id`).
-- **Embeddings:** `text-embedding-3-small`, guardados em Chroma (distância cosseno).
-- **Query:** `"<termo da categoria>: compra de <item>"`, por exemplo "mobiliário e material de escritório: compra de cadeiras". A categoria vem da extração (lista fechada). Se for `other`, a query é só `Compra de <item>`.
-- **Seleção:** `MIN_SCORE = 0.52` e no máximo 6 cláusulas. O limiar não foi baixado para fazer casos passar.
-- **Cláusulas juntadas por id:** a do escalão (2.1, 2.2 ou 2.3); as emendas que alteram uma cláusula recuperada (via `amends`); a 2.4 (compras urgentes) quando o pedido é urgente e o escalão não é o mais baixo; a 3.2 (contrato-quadro) quando o pedido o menciona.
-
-## Avaliação
-
-`data/eval/cases.jsonl` tem 50 casos etiquetados, repartidos por grupos (fronteiras de escalão, dados em falta e inválidos, injeção, injeção legítima, cobertura, sem cobertura, emendas, ambíguos, urgência). Cada caso tem o resultado esperado (estado, razão, escalão, escalação, campos em falta ou inválidos, cláusulas que a evidência tem de incluir).
-
-- **`dev`** (36 casos): serve para afinar prompts e recuperação.
-- **`holdout`** (14 casos): corre-se uma vez, no fim, e nunca se afina com ele.
-
-```bash
-uv run python eval/run_eval.py --split dev --out eval/results/dev.json
-uv run python eval/run_eval.py --split dev --group missing
-```
-
-Cada execução imprime a versão dos quatro prompts, os totais por grupo, o recall das cláusulas esperadas, os resumos e as perguntas válidos, a latência e uma tabela de tokens e custo estimado por passo.
-
-**Evolução no `dev`** (os valores esperados nunca foram alterados para ajustar aos resultados):
-
-| Alteração | Casos certos |
-|---|---|
-| Base: query só com o item | 23/31 |
-| Categoria na query, cláusulas 2.4 e 3.2 forçadas | 27/31 |
-| Definições de categoria (software e leasing são `other`) | 31/31 |
-| Item sem a quantidade (`extraction-v5`), follow-up e métricas | 36/36 (31 + 5 novos de dados em falta) |
-
-Última execução do `dev` (36 casos): recall médio das cláusulas 1.00, 24/24 resumos válidos, 7/7 perguntas do modelo válidas, latência média 3.6 s, cerca de 0.001 $ por caso. Os ficheiros de cada passo estão em `eval/results/`.
-
-<!-- Holdout: correr uma vez no fim e escrever aqui o resultado. -->
-
-### Prompts versionados
-
-| Prompt | Versão |
-|---|---|
-| Screening | `screening-v3` |
-| Extração | `extraction-v5` |
-| Resumo | `summary-v3` |
-| Pergunta de seguimento | `followup-v1` |
-
-A versão é registada em cada chamada ao modelo e impressa no eval, por isso cada ficheiro de resultados diz com que prompts foi gerado. Qualquer alteração a um prompt sobe a versão e obriga a voltar a correr o `dev`.
-
-### Custo e preços
-
-O custo estimado usa os preços por milhão de tokens em `PRICES_PER_MILLION` (`eval/run_eval.py`): `gpt-4.1-mini` 0.40 $ de entrada e 1.60 $ de saída, `text-embedding-3-small` 0.02 $. <!-- Confirmar os preços antes da entrega. -->
-
-## Testes
-
-```bash
-uv run pytest -q
-```
-
-Cobrem o que o Python decide, sem chamar a API: validação, estado, limites dos escalões, validação de citações (rejeita ids inventados), fusão de pedidos e o validador da pergunta de seguimento.
+- A validação das citações confirma que o id existe, não que a frase está de acordo com a cláusula. A fidelidade do resumo foi conferida à mão. Exemplo observado: em embalagens de 1 000 €, o resumo disse que a cláusula 2.2 "é substituída pela 8.2", quando a 8.2 só altera a 5.6.
+- 50 casos dão uma indicação, não uma garantia. O `holdout` é pequeno e já foi visto uma vez.
+- Os pedidos suspeitos não ficam registados e não há contador de tentativas por sessão.
+- Não implementei pesquisa híbrida (lexical + semântica) nem uma comparação com um baseline sem RAG.
 
 ## Estrutura
 
 ```
-app/streamlit_app.py       interface (passos em direto, pergunta, resultado, evidência)
-data/policies/             corpus de políticas (markdown)
-data/eval/cases.jsonl      casos de avaliação
-eval/run_eval.py           corre os casos e mede qualidade, tokens e custo
-scripts/run.py             constrói o índice (se faltar) e arranca a interface
-scripts/build_index.py     cria o índice Chroma
+app/streamlit_app.py     interface
+scripts/                 run.py, build_index.py
 src/pr_triage/
-  domain/                  schemas, estados, escalões, validação, fusão, citações, follow-up
-  llm/                     screening, extração, resumo, pergunta (OpenAI Responses API) e métricas
-  rag/                     chunking, índice, query, pesquisa, seleção de contexto
-  storage/db.py            SQLite
-  workflow.py              fluxo por passos (emite um evento por passo)
-  service.py               fluxo + persistência
-tests/                     testes unitários
+  workflow.py            os 7 passos
+  service.py             camada de serviço (pedidos e histórico)
+  domain/                schemas, validação, escalões, estados, citações
+  llm/                   chamadas ao modelo e prompts versionados
+  rag/                   índice e recuperação
+  storage/db.py          SQLite
+data/policies/           8 documentos, 47 cláusulas
+data/eval/cases.jsonl    casos de avaliação
+eval/run_eval.py         avaliação e métricas
+tests/
 ```
 
-Cada pedido (exceto os suspeitos) fica registado em `pr_triage.db` (SQLite, ignorado pelo Git), com categoria, urgência e menção a contrato-quadro, para a conversa de seguimento.
-
-Alternativa ao `run.py`, em dois passos: `uv run python scripts/build_index.py` e `uv run streamlit run app/streamlit_app.py`.
-
-## Limitações conhecidas
-
-- **O modelo não é determinístico**, nem com `temperature=0`: a extração do mesmo texto e a fidelidade do resumo variam entre execuções.
-- **A validação das citações só confirma que os ids existem**, não que o texto do resumo seja fiel à cláusula. Exemplo observado: no caso `amend-manutencao-urgente` (4 000 €, urgente), o resumo diz que a cláusula 2.4 não se aplica "acima de 5 000 €", quando o pedido está abaixo desse valor. A fidelidade foi conferida à mão.
-- **O termo de pesquisa de `investment_goods`** traz por vezes cláusulas não relacionadas (3.6, 8.4, 2.3) para outros itens.
-- **A margem do limiar de similaridade é curta** em alguns casos (por exemplo, 0.514 contra 0.52).
-- **Os casos de avaliação são poucos** (50): 36/36 no `dev` significa que não há regressões conhecidas, não que o sistema generalize.
-- **Não há contador de tentativas suspeitas por sessão**, e a evidência e o resumo não são persistidos.
+Cada pedido (exceto os suspeitos) fica em `pr_triage.db` (SQLite, ignorado pelo Git), com o resultado completo em JSON: evidência, resumo, pergunta e, por chamada, a versão do prompt e os tokens.

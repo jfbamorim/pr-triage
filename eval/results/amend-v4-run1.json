@@ -1,0 +1,238 @@
+[
+  {
+    "id": "amend-manutencao-urgente",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.901683333970141,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de intervenção de manutenção urgente no valor de 4 000 €, a política exige, segundo a cláusula 2.2, pelo menos duas cotações de fornecedores diferentes anexadas à requisição e aprovação do responsável do departamento. Contudo, por se tratar de uma compra urgente, a cláusula 2.4 permite reduzir o número de cotações para uma, desde que a urgência seja justificada por escrito pelo responsável do departamento. Além disso, a cláusula 8.3, que substitui a cláusula 5.2, estabelece que uma intervenção inicial urgente não pode exceder 3 000 € sem aprovação prévia específica da chefia responsável e da função de Compras, sempre que possível antes do compromisso. Como o valor do pedido é superior a 3 000 €, esta aprovação prévia seria necessária para enquadrar a intervenção como urgente.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "02-escaloes-e-cotacoes#2.4",
+        "08-atualizacoes#8.3"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "05-categorias-especificas#5.2",
+        "score": 0.5563216209411621
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.3",
+        "score": null
+      },
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 509,
+        "output_tokens": 30,
+        "latency": 1.3922271670307964
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 703,
+        "output_tokens": 48,
+        "latency": 1.205408250039909
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 17,
+        "output_tokens": 0,
+        "latency": 0.20448808296350762
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v4",
+        "input_tokens": 1174,
+        "output_tokens": 227,
+        "latency": 1.9720903330016881
+      }
+    ]
+  },
+  {
+    "id": "inv-impressora3d",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 3.6665847080294043,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de impressoras 3D industriais, que são bens com vida útil superior a um ano e cujo valor estimado é de 3 800 €, a política exige que sejam tratadas como investimento, pelo que é necessária a aprovação do controlo de gestão, conforme a cláusula 8.4 que altera a cláusula 3.6. Além disso, por se tratar de um pedido com valor entre 1 000 € e 5 000 €, é obrigatório anexar pelo menos duas cotações de fornecedores diferentes e obter a aprovação do responsável do departamento, conforme a cláusula 2.2.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "08-atualizacoes#8.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.6",
+        "score": 0.6106473803520203
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.4",
+        "score": 0.5412706136703491
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 507,
+        "output_tokens": 27,
+        "latency": 0.7986989579512738
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 701,
+        "output_tokens": 47,
+        "latency": 0.9119258749997243
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 33,
+        "output_tokens": 0,
+        "latency": 0.19593895802972838
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v4",
+        "input_tokens": 987,
+        "output_tokens": 160,
+        "latency": 1.7281837919726968
+      }
+    ]
+  },
+  {
+    "id": "inv-forno",
+    "group": "amendment",
+    "split": "dev",
+    "passed": true,
+    "failures": [],
+    "recall": 1.0,
+    "latency": 4.109950417012442,
+    "actual": {
+      "status": "valid",
+      "reason": null,
+      "band": "policy_to_be_verified",
+      "escalation": null,
+      "missing": [],
+      "invalid": []
+    },
+    "summary": {
+      "state": "ok",
+      "text": "Para este pedido de fornos industriais de laboratório, com valor estimado de 2 200 €, a política exige que sejam obtidas pelo menos duas cotações de fornecedores diferentes e que haja aprovação do responsável do departamento, conforme a cláusula 2.2. Além disso, como o valor ultrapassa o limite de 2 000 € para bens de investimento com vida útil superior a um ano, é necessária também a aprovação do controlo de gestão, segundo a cláusula 8.4, que substitui a cláusula 3.6.",
+      "cited": [
+        "02-escaloes-e-cotacoes#2.2",
+        "08-atualizacoes#8.4"
+      ]
+    },
+    "follow_up": {
+      "state": "n/a",
+      "text": null
+    },
+    "evidence": [
+      {
+        "chunk_id": "02-escaloes-e-cotacoes#2.2",
+        "score": null
+      },
+      {
+        "chunk_id": "03-fornecedores-e-categorias#3.6",
+        "score": 0.5827832818031311
+      },
+      {
+        "chunk_id": "08-atualizacoes#8.4",
+        "score": null
+      }
+    ],
+    "calls": [
+      {
+        "step": "screening",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "screening-v3",
+        "input_tokens": 506,
+        "output_tokens": 27,
+        "latency": 0.8073231670423411
+      },
+      {
+        "step": "extraction",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "extraction-v5",
+        "input_tokens": 700,
+        "output_tokens": 45,
+        "latency": 1.380053750006482
+      },
+      {
+        "step": "embedding",
+        "model": "text-embedding-3-small",
+        "prompt_version": null,
+        "input_tokens": 33,
+        "output_tokens": 0,
+        "latency": 0.27865754201775417
+      },
+      {
+        "step": "summary",
+        "model": "gpt-4.1-mini",
+        "prompt_version": "summary-v4",
+        "input_tokens": 986,
+        "output_tokens": 146,
+        "latency": 1.6169766249950044
+      }
+    ]
+  }
+]

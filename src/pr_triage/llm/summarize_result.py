@@ -9,7 +9,7 @@ from pr_triage.llm.metrics import parse_with_metrics
 
 load_dotenv()
 
-PROMPT_VERSION = "summary-v3"
+PROMPT_VERSION = "summary-v4"
 
 INSTRUCTIONS = """Vais explicar a um colega de Compras o resultado da triagem de um pedido de compra.
 A decisão já foi tomada pelo sistema. Não a alteres, não aprovas nem rejeitas o pedido.
@@ -28,6 +28,9 @@ Regras de rigor:
   outra se a própria cláusula o indicar. Caso contrário descreve as duas.
 - Se uma regra tem âmbito limitado (por exemplo, só para uma intervenção inicial ou só
   para um tipo de bem), diz esse âmbito.
+- Quando uma cláusula define um limite de valor, compara o valor do pedido com esse limite
+  antes de concluir. Se o valor do pedido está dentro do âmbito da cláusula, a cláusula
+  aplica-se; só digas que não se aplica se o valor estiver fora do âmbito.
 - Fala apenas das cláusulas que se aplicam ao valor e ao item deste pedido. Ignora as outras.
 - Se uma cláusula indicar que altera ou substitui outra, usa a versão em vigor.
 - Se o pedido é urgente ou indica contrato-quadro, e recebeste a cláusula respetiva,
