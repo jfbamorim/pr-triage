@@ -27,8 +27,8 @@ Quem faz compras recebe pedidos incompletos, mal escritos ou fora da política. 
 ## O fluxo
 
 ![Fluxo](docs/fluxo.png)
-![Resultado de um pedido](docs/captura-resultado.png)
-![Pergunta de seguimento](docs/captura-pergunta.png)
+![Resultado de um pedido](docs/captura_resultado.png)
+![Pergunta de seguimento](docs/captura_pergunta.png)
 
 
 | # | Passo | Quem faz |
